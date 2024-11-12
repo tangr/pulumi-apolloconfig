@@ -2,8 +2,8 @@ PROJECT_NAME := Pulumi Service Resource Provider
 
 PACK             := apolloconfig
 PACKDIR          := sdk
-PROJECT          := github.com/pulumi/pulumi-apolloconfig
-NODE_MODULE_NAME := @pulumi/pulumi-service
+PROJECT          := github.com/tangr/pulumi-apolloconfig
+NODE_MODULE_NAME := @pulumi/pulumi-apolloconfig
 NUGET_PKG_NAME   := Pulumi.apolloconfig
 
 PROVIDER        := pulumi-resource-${PACK}
@@ -141,7 +141,7 @@ install_java_sdk::
 
 
 # Keep the version of the pulumi binary used for code generation in sync with the version
-# of the dependency used by github.com/pulumi/pulumi-apolloconfig/provider
+# of the dependency used by github.com/tangr/pulumi-apolloconfig/provider
 
 $(PULUMI): HOME := $(WORKING_DIR)
 $(PULUMI): provider/go.mod
