@@ -29,7 +29,8 @@ ensure::
 
 gen::
 
-build_sdks: dotnet_sdk go_sdk nodejs_sdk python_sdk java_sdk
+# build_sdks: dotnet_sdk go_sdk nodejs_sdk python_sdk java_sdk
+build_sdks: nodejs_sdk
 
 gen_sdk_prerequisites: $(PULUMI)
 
@@ -96,7 +97,8 @@ java_sdk: gen_sdk_prerequisites
 	  PULUMI_JAVA_SDK_VERSION=0.10.0 $(GRADLE) --console=plain publishToMavenLocal
 
 .PHONY: build
-build:: gen provider dotnet_sdk go_sdk nodejs_sdk python_sdk java_sdk
+# build:: gen provider dotnet_sdk go_sdk nodejs_sdk python_sdk java_sdk
+build:: gen provider nodejs_sdk
 
 # Required for the codegen action that runs in pulumi/pulumi
 only_build:: build
@@ -107,7 +109,8 @@ lint::
 	done
 
 
-install:: install_nodejs_sdk install_dotnet_sdk
+# install:: install_nodejs_sdk install_dotnet_sdk
+install:: install_nodejs_sdk
 	cp $(WORKING_DIR)/bin/${PROVIDER} ${GOPATH}/bin
 
 GO_TEST := go test -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
