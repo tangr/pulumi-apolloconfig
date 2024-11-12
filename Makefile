@@ -1,17 +1,17 @@
 PROJECT_NAME := Pulumi Service Resource Provider
 
-PACK             := pulumiservice
+PACK             := apolloconfig
 PACKDIR          := sdk
-PROJECT          := github.com/pulumi/pulumi-pulumiservice
+PROJECT          := github.com/pulumi/pulumi-apolloconfig
 NODE_MODULE_NAME := @pulumi/pulumi-service
-NUGET_PKG_NAME   := Pulumi.PulumiService
+NUGET_PKG_NAME   := Pulumi.apolloconfig
 
 PROVIDER        := pulumi-resource-${PACK}
 VERSION         ?= $(shell pulumictl get version)
 PROVIDER_PATH   := provider
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 
-SCHEMA_FILE     := provider/cmd/pulumi-resource-pulumiservice/schema.json
+SCHEMA_FILE     := provider/cmd/pulumi-resource-apolloconfig/schema.json
 GOPATH			:= $(shell go env GOPATH)
 
 WORKING_DIR     := $(shell pwd)
@@ -85,7 +85,7 @@ python_sdk: gen_sdk_prerequisites
 
 GRADLE_DIR := $(WORKING_DIR)/.gradle
 GRADLE := $(GRADLE_DIR)/gradlew
-java_sdk: RESOURCE_FOLDER := src/main/resources/com/pulumi/pulumiservice
+java_sdk: RESOURCE_FOLDER := src/main/resources/com/tangr/pulumi-apolloconfig
 java_sdk: gen_sdk_prerequisites
 	rm -rf sdk/java/{.gradle,build,src}
 	$(PULUMI) package gen-sdk $(SCHEMA_FILE) --language java
@@ -94,7 +94,7 @@ java_sdk: gen_sdk_prerequisites
 	cd sdk/java && \
 	mkdir -p $(RESOURCE_FOLDER) && \
 	  echo "$(VERSION)" > $(RESOURCE_FOLDER)/version.txt && \
-	  echo '{"resource": true,"name": "pulumiservice","version": "$(VERSION)"}' > $(RESOURCE_FOLDER)/plugin.json && \
+	  echo '{"resource": true,"name": "apolloconfig","version": "$(VERSION)"}' > $(RESOURCE_FOLDER)/plugin.json && \
 	  PULUMI_JAVA_SDK_VERSION=0.10.0 $(GRADLE) --console=plain build && \
 	  PULUMI_JAVA_SDK_VERSION=0.10.0 $(GRADLE) --console=plain publishToMavenLocal
 
@@ -141,7 +141,7 @@ install_java_sdk::
 
 
 # Keep the version of the pulumi binary used for code generation in sync with the version
-# of the dependency used by github.com/pulumi/pulumi-pulumiservice/provider
+# of the dependency used by github.com/pulumi/pulumi-apolloconfig/provider
 
 $(PULUMI): HOME := $(WORKING_DIR)
 $(PULUMI): provider/go.mod
