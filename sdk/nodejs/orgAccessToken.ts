@@ -21,7 +21,7 @@ export class OrgAccessToken extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'pulumiservice:index:OrgAccessToken';
+    public static readonly __pulumiType = 'apolloconfig:index:OrgAccessToken';
 
     /**
      * Returns true if the given object is an instance of OrgAccessToken.  This is designed to work even

@@ -24,7 +24,7 @@ export class DeploymentSchedule extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'pulumiservice:index:DeploymentSchedule';
+    public static readonly __pulumiType = 'apolloconfig:index:DeploymentSchedule';
 
     /**
      * Returns true if the given object is an instance of DeploymentSchedule.  This is designed to work even

@@ -15,7 +15,7 @@ import * as utilities from "./utilities";
  * Deployment settings can be imported using the `id`, which for deployment settings is `{org}/{project}/{stack}` e.g.,
  *
  * ```sh
- *  $ pulumi import pulumiservice:index:DeploymentSettings my_settings my-org/my-project/my-stack
+ *  $ pulumi import apolloconfig:index:DeploymentSettings my_settings my-org/my-project/my-stack
  * ```
  */
 export class DeploymentSettings extends pulumi.CustomResource {
@@ -32,7 +32,7 @@ export class DeploymentSettings extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'pulumiservice:index:DeploymentSettings';
+    public static readonly __pulumiType = 'apolloconfig:index:DeploymentSettings';
 
     /**
      * Returns true if the given object is an instance of DeploymentSettings.  This is designed to work even

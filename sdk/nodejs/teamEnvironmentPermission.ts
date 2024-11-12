@@ -24,7 +24,7 @@ export class TeamEnvironmentPermission extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'pulumiservice:index:TeamEnvironmentPermission';
+    public static readonly __pulumiType = 'apolloconfig:index:TeamEnvironmentPermission';
 
     /**
      * Returns true if the given object is an instance of TeamEnvironmentPermission.  This is designed to work even

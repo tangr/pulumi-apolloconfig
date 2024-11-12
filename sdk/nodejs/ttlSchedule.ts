@@ -21,7 +21,7 @@ export class TtlSchedule extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'pulumiservice:index:TtlSchedule';
+    public static readonly __pulumiType = 'apolloconfig:index:TtlSchedule';
 
     /**
      * Returns true if the given object is an instance of TtlSchedule.  This is designed to work even

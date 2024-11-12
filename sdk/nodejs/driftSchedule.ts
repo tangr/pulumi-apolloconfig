@@ -21,7 +21,7 @@ export class DriftSchedule extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'pulumiservice:index:DriftSchedule';
+    public static readonly __pulumiType = 'apolloconfig:index:DriftSchedule';
 
     /**
      * Returns true if the given object is an instance of DriftSchedule.  This is designed to work even

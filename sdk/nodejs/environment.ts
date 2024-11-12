@@ -21,7 +21,7 @@ export class Environment extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'pulumiservice:index:Environment';
+    public static readonly __pulumiType = 'apolloconfig:index:Environment';
 
     /**
      * Returns true if the given object is an instance of Environment.  This is designed to work even

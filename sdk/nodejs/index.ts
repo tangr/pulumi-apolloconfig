@@ -112,50 +112,50 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
-            case "pulumiservice:index:AccessToken":
+            case "apolloconfig:index:AccessToken":
                 return new AccessToken(name, <any>undefined, { urn })
-            case "pulumiservice:index:AgentPool":
+            case "apolloconfig:index:AgentPool":
                 return new AgentPool(name, <any>undefined, { urn })
-            case "pulumiservice:index:DeploymentSchedule":
+            case "apolloconfig:index:DeploymentSchedule":
                 return new DeploymentSchedule(name, <any>undefined, { urn })
-            case "pulumiservice:index:DeploymentSettings":
+            case "apolloconfig:index:DeploymentSettings":
                 return new DeploymentSettings(name, <any>undefined, { urn })
-            case "pulumiservice:index:DriftSchedule":
+            case "apolloconfig:index:DriftSchedule":
                 return new DriftSchedule(name, <any>undefined, { urn })
-            case "pulumiservice:index:Environment":
+            case "apolloconfig:index:Environment":
                 return new Environment(name, <any>undefined, { urn })
-            case "pulumiservice:index:EnvironmentVersionTag":
+            case "apolloconfig:index:EnvironmentVersionTag":
                 return new EnvironmentVersionTag(name, <any>undefined, { urn })
-            case "pulumiservice:index:OrgAccessToken":
+            case "apolloconfig:index:OrgAccessToken":
                 return new OrgAccessToken(name, <any>undefined, { urn })
-            case "pulumiservice:index:Stack":
+            case "apolloconfig:index:Stack":
                 return new Stack(name, <any>undefined, { urn })
-            case "pulumiservice:index:StackTag":
+            case "apolloconfig:index:StackTag":
                 return new StackTag(name, <any>undefined, { urn })
-            case "pulumiservice:index:Team":
+            case "apolloconfig:index:Team":
                 return new Team(name, <any>undefined, { urn })
-            case "pulumiservice:index:TeamAccessToken":
+            case "apolloconfig:index:TeamAccessToken":
                 return new TeamAccessToken(name, <any>undefined, { urn })
-            case "pulumiservice:index:TeamEnvironmentPermission":
+            case "apolloconfig:index:TeamEnvironmentPermission":
                 return new TeamEnvironmentPermission(name, <any>undefined, { urn })
-            case "pulumiservice:index:TeamStackPermission":
+            case "apolloconfig:index:TeamStackPermission":
                 return new TeamStackPermission(name, <any>undefined, { urn })
-            case "pulumiservice:index:TemplateSource":
+            case "apolloconfig:index:TemplateSource":
                 return new TemplateSource(name, <any>undefined, { urn })
-            case "pulumiservice:index:TtlSchedule":
+            case "apolloconfig:index:TtlSchedule":
                 return new TtlSchedule(name, <any>undefined, { urn })
-            case "pulumiservice:index:Webhook":
+            case "apolloconfig:index:Webhook":
                 return new Webhook(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
-pulumi.runtime.registerResourceModule("pulumiservice", "index", _module)
-pulumi.runtime.registerResourcePackage("pulumiservice", {
+pulumi.runtime.registerResourceModule("apolloconfig", "index", _module)
+pulumi.runtime.registerResourcePackage("apolloconfig", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {
-        if (type !== "pulumi:providers:pulumiservice") {
+        if (type !== "pulumi:providers:apolloconfig") {
             throw new Error(`unknown provider type ${type}`);
         }
         return new Provider(name, <any>undefined, { urn });

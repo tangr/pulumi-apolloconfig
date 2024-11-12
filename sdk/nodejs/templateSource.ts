@@ -24,7 +24,7 @@ export class TemplateSource extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'pulumiservice:index:TemplateSource';
+    public static readonly __pulumiType = 'apolloconfig:index:TemplateSource';
 
     /**
      * Returns true if the given object is an instance of TemplateSource.  This is designed to work even

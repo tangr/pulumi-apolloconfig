@@ -24,7 +24,7 @@ export class TeamStackPermission extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'pulumiservice:index:TeamStackPermission';
+    public static readonly __pulumiType = 'apolloconfig:index:TeamStackPermission';
 
     /**
      * Returns true if the given object is an instance of TeamStackPermission.  This is designed to work even

@@ -15,7 +15,7 @@ import * as utilities from "./utilities";
  * Pulumi webhooks can be imported using the `id`, which for webhooks is `{org}/{project}/{stack}/{webhook-name}` e.g.,
  *
  * ```sh
- *  $ pulumi import pulumiservice:index:Webhook my_webhook my-org/my-project/my-stack/4b0d0671
+ *  $ pulumi import apolloconfig:index:Webhook my_webhook my-org/my-project/my-stack/4b0d0671
  * ```
  */
 export class Webhook extends pulumi.CustomResource {
@@ -32,7 +32,7 @@ export class Webhook extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'pulumiservice:index:Webhook';
+    public static readonly __pulumiType = 'apolloconfig:index:Webhook';
 
     /**
      * Returns true if the given object is an instance of Webhook.  This is designed to work even

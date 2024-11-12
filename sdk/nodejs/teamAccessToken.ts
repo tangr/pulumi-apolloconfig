@@ -21,7 +21,7 @@ export class TeamAccessToken extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'pulumiservice:index:TeamAccessToken';
+    public static readonly __pulumiType = 'apolloconfig:index:TeamAccessToken';
 
     /**
      * Returns true if the given object is an instance of TeamAccessToken.  This is designed to work even

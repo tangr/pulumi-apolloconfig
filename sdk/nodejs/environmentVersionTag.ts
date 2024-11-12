@@ -21,7 +21,7 @@ export class EnvironmentVersionTag extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'pulumiservice:index:EnvironmentVersionTag';
+    public static readonly __pulumiType = 'apolloconfig:index:EnvironmentVersionTag';
 
     /**
      * Returns true if the given object is an instance of EnvironmentVersionTag.  This is designed to work even

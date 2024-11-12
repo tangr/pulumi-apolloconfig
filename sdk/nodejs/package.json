@@ -1,5 +1,5 @@
 {
-    "name": "@pulumi/pulumiservice",
+    "name": "@pulumi/apolloconfig",
     "version": "${VERSION}",
     "keywords": [
         "pulumi",
@@ -7,7 +7,7 @@
         "category/infrastructure"
     ],
     "homepage": "https://pulumi.com",
-    "repository": "https://github.com/pulumi/pulumi-pulumiservice",
+    "repository": "https://github.com/tangr/pulumi-apolloconfig",
     "license": "Apache-2.0",
     "scripts": {
         "build": "tsc"
@@ -21,6 +21,6 @@
     },
     "pulumi": {
         "resource": true,
-        "name": "pulumiservice"
+        "name": "apolloconfig"
     }
 }

@@ -21,7 +21,7 @@ export class StackTag extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'pulumiservice:index:StackTag';
+    public static readonly __pulumiType = 'apolloconfig:index:StackTag';
 
     /**
      * Returns true if the given object is an instance of StackTag.  This is designed to work even
