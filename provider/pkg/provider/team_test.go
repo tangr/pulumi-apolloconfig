@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	"github.com/pulumi/pulumi-pulumiservice/provider/pkg/internal/pulumiapi"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"github.com/stretchr/testify/assert"
+	"github.com/tangr/pulumi-apolloconfig/provider/pkg/internal/pulumiapi"
 )
 
 type getTeamFunc func() (*pulumiapi.Team, error)

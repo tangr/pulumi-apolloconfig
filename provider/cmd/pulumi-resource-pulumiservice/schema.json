@@ -1,9 +1,9 @@
 {
-  "name": "pulumiservice",
+  "name": "apolloconfig",
   "displayName": "Pulumi Cloud",
   "description": "A native Pulumi package for creating and managing Pulumi Cloud constructs",
   "homepage": "https://pulumi.com",
-  "repository": "https://github.com/pulumi/pulumi-pulumiservice",
+  "repository": "https://github.com/tangr/pulumi-apolloconfig",
   "keywords": [
     "pulumi",
     "kind/native",
@@ -1653,10 +1653,10 @@
     },
     "go": {
       "generateResourceContainerTypes": true,
-      "importBasePath": "github.com/pulumi/pulumi-pulumiservice/sdk/go/pulumiservice"
+      "importBasePath": "github.com/tangr/pulumi-apolloconfig/sdk/go/pulumiservice"
     },
     "nodejs": {
-      "packageName": "@pulumi/pulumiservice",
+      "packageName": "@pulumi/apolloconfig",
       "dependencies": {
         "@pulumi/pulumi": "^3.0.0"
       }

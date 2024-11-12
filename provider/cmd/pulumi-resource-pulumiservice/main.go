@@ -17,11 +17,11 @@ package main
 import (
 	_ "embed"
 
-	"github.com/pulumi/pulumi-pulumiservice/provider/pkg/provider"
-	"github.com/pulumi/pulumi-pulumiservice/provider/pkg/version"
+	"github.com/tangr/pulumi-apolloconfig/provider/pkg/provider"
+	"github.com/tangr/pulumi-apolloconfig/provider/pkg/version"
 )
 
-var providerName = "pulumiservice"
+var providerName = "apolloconfig"
 
 // embed schema.json directly into resource binary so that we can properly serve the schema
 // directly from the resource provider

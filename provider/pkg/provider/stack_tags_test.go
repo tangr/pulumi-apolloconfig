@@ -5,10 +5,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/pulumi/pulumi-pulumiservice/provider/pkg/internal/pulumiapi"
-	"github.com/pulumi/pulumi-pulumiservice/provider/pkg/internal/serde"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"github.com/stretchr/testify/assert"
+	"github.com/tangr/pulumi-apolloconfig/provider/pkg/internal/pulumiapi"
+	"github.com/tangr/pulumi-apolloconfig/provider/pkg/internal/serde"
 )
 
 func TestStackTagsUpdate(t *testing.T) {
