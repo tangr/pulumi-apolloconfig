@@ -142,15 +142,6 @@ func (k *apolloconfigProvider) Configure(_ context.Context, req *pulumirpc.Confi
 		&PulumiServiceStackTagResource{
 			client: client,
 		},
-		&TeamStackPermissionResource{
-			client: client,
-		},
-		&PulumiServiceTeamAccessTokenResource{
-			client: client,
-		},
-		&PulumiServiceOrgAccessTokenResource{
-			client: client,
-		},
 		&PulumiServiceDeploymentSettingsResource{
 			client: client,
 		},
@@ -160,26 +151,11 @@ func (k *apolloconfigProvider) Configure(_ context.Context, req *pulumirpc.Confi
 		&PulumiServiceDeploymentScheduleResource{
 			client: client,
 		},
-		&PulumiServiceDriftScheduleResource{
-			client: client,
-		},
-		&PulumiServiceTtlScheduleResource{
-			client: client,
-		},
 		&PulumiServiceEnvironmentResource{
 			client: escClient,
 		},
-		&PulumiServiceTeamEnvironmentPermissionResource{
-			client: client,
-		},
 		&PulumiServiceEnvironmentVersionTagResource{
 			client: escClient,
-		},
-		&PulumiServiceStackResource{
-			client: client,
-		},
-		&PulumiServiceTemplateSourceResource{
-			client: client,
 		},
 	}
 
