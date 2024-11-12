@@ -22,10 +22,12 @@ PULUMI := .pulumi/bin/pulumi
 
 export PULUMI_IGNORE_AMBIENT_PLUGINS = true
 
+# ensure::
+# 	cd provider && go mod tidy
+# 	cd sdk && go mod tidy
+# 	cd examples && go mod tidy
 ensure::
 	cd provider && go mod tidy
-	cd sdk && go mod tidy
-	cd examples && go mod tidy
 
 gen::
 
@@ -103,8 +105,12 @@ build:: gen provider nodejs_sdk
 # Required for the codegen action that runs in pulumi/pulumi
 only_build:: build
 
+# lint::
+# 	for DIR in "provider" "sdk" "examples" ; do \
+# 		pushd $$DIR && golangci-lint run -c ../.golangci.yml --timeout 10m && popd ; \
+# 	done
 lint::
-	for DIR in "provider" "sdk" "examples" ; do \
+	for DIR in "provider" ; do \
 		pushd $$DIR && golangci-lint run -c ../.golangci.yml --timeout 10m && popd ; \
 	done
 
