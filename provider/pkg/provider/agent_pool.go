@@ -84,7 +84,7 @@ func (ap *PulumiServiceAgentPoolResource) ToPulumiServiceAgentPoolInput(inputMap
 }
 
 func (ap *PulumiServiceAgentPoolResource) Name() string {
-	return "pulumiservice:index:AgentPool"
+	return "apolloconfig:index:AgentPool"
 }
 
 func (ap *PulumiServiceAgentPoolResource) Diff(req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
@@ -268,7 +268,7 @@ func (ap *PulumiServiceAgentPoolResource) Read(req *pulumirpc.ReadRequest) (*pul
 	}, nil
 }
 
-func (ap *PulumiServiceAgentPoolResource) Invoke(_ *pulumiserviceProvider, req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
+func (ap *PulumiServiceAgentPoolResource) Invoke(_ *apolloconfigProvider, req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
 	return &pulumirpc.InvokeResponse{Return: nil}, fmt.Errorf("unknown function '%s'", req.Tok)
 }
 

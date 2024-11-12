@@ -36,7 +36,7 @@ func (tp *TeamStackPermissionResource) ToPulumiServiceTeamInput(inputMap resourc
 }
 
 func (tp *TeamStackPermissionResource) Name() string {
-	return "pulumiservice:index:TeamStackPermission"
+	return "apolloconfig:index:TeamStackPermission"
 }
 
 func (tp *TeamStackPermissionResource) Check(req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {

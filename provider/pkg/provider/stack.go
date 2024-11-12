@@ -47,7 +47,7 @@ func (s *PulumiServiceStackResource) ToPulumiServiceStackTagInput(inputMap resou
 }
 
 func (s *PulumiServiceStackResource) Name() string {
-	return "pulumiservice:index:Stack"
+	return "apolloconfig:index:Stack"
 }
 
 func (s *PulumiServiceStackResource) Diff(req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {

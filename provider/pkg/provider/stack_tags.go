@@ -40,7 +40,7 @@ func (st *PulumiServiceStackTagResource) ToPulumiServiceStackTagInput(inputMap r
 }
 
 func (st *PulumiServiceStackTagResource) Name() string {
-	return "pulumiservice:index:StackTag"
+	return "apolloconfig:index:StackTag"
 }
 
 func (st *PulumiServiceStackTagResource) Diff(req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {

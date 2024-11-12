@@ -226,7 +226,7 @@ func (st *PulumiServiceDriftScheduleResource) Read(req *pulumirpc.ReadRequest) (
 }
 
 func (st *PulumiServiceDriftScheduleResource) Name() string {
-	return "pulumiservice:index:DriftSchedule"
+	return "apolloconfig:index:DriftSchedule"
 }
 
 func (st *PulumiServiceDriftScheduleResource) Configure(_ PulumiServiceConfig) {

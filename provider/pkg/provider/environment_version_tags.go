@@ -44,7 +44,7 @@ func (evt *PulumiServiceEnvironmentVersionTagResource) ToPulumiServiceEnvironmen
 }
 
 func (evt *PulumiServiceEnvironmentVersionTagResource) Name() string {
-	return "pulumiservice:index:EnvironmentVersionTag"
+	return "apolloconfig:index:EnvironmentVersionTag"
 }
 
 func (evt *PulumiServiceEnvironmentVersionTagResource) Diff(req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {

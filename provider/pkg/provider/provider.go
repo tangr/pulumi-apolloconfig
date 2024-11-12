@@ -47,7 +47,7 @@ type PulumiServiceResource interface {
 	Name() string
 }
 
-type pulumiserviceProvider struct {
+type apolloconfigProvider struct {
 	pulumirpc.UnimplementedResourceProviderServer
 
 	host            *provider.HostClient
@@ -62,7 +62,7 @@ func makeProvider(host *provider.HostClient, name, version, schema string) (pulu
 	// inject version into schema
 	versionedSchema := mustSetSchemaVersion(schema, version)
 	// Return the new provider
-	return &pulumiserviceProvider{
+	return &apolloconfigProvider{
 		host:        host,
 		name:        name,
 		schema:      versionedSchema,
@@ -72,12 +72,12 @@ func makeProvider(host *provider.HostClient, name, version, schema string) (pulu
 }
 
 // Call dynamically executes a method in the provider associated with a component resource.
-func (k *pulumiserviceProvider) Call(ctx context.Context, req *pulumirpc.CallRequest) (*pulumirpc.CallResponse, error) {
+func (k *apolloconfigProvider) Call(ctx context.Context, req *pulumirpc.CallRequest) (*pulumirpc.CallResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "Call is not yet implemented")
 }
 
 // Attach implements pulumirpc.ResourceProviderServer
-func (k *pulumiserviceProvider) Attach(_ context.Context, req *pulumirpc.PluginAttach) (*pbempty.Empty, error) {
+func (k *apolloconfigProvider) Attach(_ context.Context, req *pulumirpc.PluginAttach) (*pbempty.Empty, error) {
 	host, err := provider.NewHostClient(req.Address)
 	if err != nil {
 		return nil, err
@@ -87,27 +87,27 @@ func (k *pulumiserviceProvider) Attach(_ context.Context, req *pulumirpc.PluginA
 }
 
 // Construct creates a new component resource.
-func (k *pulumiserviceProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRequest) (*pulumirpc.ConstructResponse, error) {
+func (k *apolloconfigProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRequest) (*pulumirpc.ConstructResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "Construct is not yet implemented")
 }
 
 // CheckConfig validates the configuration for this provider.
-func (k *pulumiserviceProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
+func (k *apolloconfigProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
 	return &pulumirpc.CheckResponse{Inputs: req.GetNews()}, nil
 }
 
 // DiffConfig diffs the configuration for this provider.
-func (k *pulumiserviceProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
+func (k *apolloconfigProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
 	return &pulumirpc.DiffResponse{}, nil
 }
 
 // Configure configures the resource provider with "globals" that control its behavior.
-func (k *pulumiserviceProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequest) (*pulumirpc.ConfigureResponse, error) {
+func (k *apolloconfigProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequest) (*pulumirpc.ConfigureResponse, error) {
 
 	sc := PulumiServiceConfig{}
 	sc.Config = make(map[string]string)
 	for key, val := range req.GetVariables() {
-		sc.Config[strings.TrimPrefix(key, "pulumiservice:config:")] = val
+		sc.Config[strings.TrimPrefix(key, "apolloconfig:config:")] = val
 	}
 
 	httpClient := http.Client{
@@ -123,7 +123,7 @@ func (k *pulumiserviceProvider) Configure(_ context.Context, req *pulumirpc.Conf
 	}
 	client, err := pulumiapi.NewClient(&httpClient, *token, *url)
 
-	escClient := esc_client.New(fmt.Sprintf("provider-pulumiservice/1 (%s; %s)", version.Version, runtime.GOOS), *url, *token, false)
+	escClient := esc_client.New(fmt.Sprintf("provider-apolloconfig/1 (%s; %s)", version.Version, runtime.GOOS), *url, *token, false)
 
 	if err != nil {
 		return nil, err
@@ -193,14 +193,14 @@ func (k *pulumiserviceProvider) Configure(_ context.Context, req *pulumirpc.Conf
 }
 
 // Invoke dynamically executes a built-in function in the provider.
-func (k *pulumiserviceProvider) Invoke(_ context.Context, req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
+func (k *apolloconfigProvider) Invoke(_ context.Context, req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
 	tok := req.GetTok()
 	return nil, fmt.Errorf("unknown Invoke token '%s'", tok)
 }
 
 // StreamInvoke dynamically executes a built-in function in the provider. The result is streamed
 // back as a series of messages.
-func (k *pulumiserviceProvider) StreamInvoke(req *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer) error {
+func (k *apolloconfigProvider) StreamInvoke(req *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer) error {
 	tok := req.GetTok()
 	return fmt.Errorf("unknown StreamInvoke token '%s'", tok)
 }
@@ -211,35 +211,35 @@ func (k *pulumiserviceProvider) StreamInvoke(req *pulumirpc.InvokeRequest, serve
 // representation of the properties as present in the program inputs. Though this rule is not
 // required for correctness, violations thereof can negatively impact the end-user experience, as
 // the provider inputs are using for detecting and rendering diffs.
-func (k *pulumiserviceProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
+func (k *apolloconfigProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
 	rn := getResourceNameFromRequest(req)
 	res := k.getPulumiServiceResource(rn)
 	return res.Check(req)
 }
 
 // Diff checks what impacts a hypothetical update will have on the resource's properties.
-func (k *pulumiserviceProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
+func (k *apolloconfigProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
 	rn := getResourceNameFromRequest(req)
 	res := k.getPulumiServiceResource(rn)
 	return res.Diff(req)
 }
 
 // Create allocates a new instance of the provided resource and returns its unique ID afterwards.
-func (k *pulumiserviceProvider) Create(ctx context.Context, req *pulumirpc.CreateRequest) (*pulumirpc.CreateResponse, error) {
+func (k *apolloconfigProvider) Create(ctx context.Context, req *pulumirpc.CreateRequest) (*pulumirpc.CreateResponse, error) {
 	rn := getResourceNameFromRequest(req)
 	res := k.getPulumiServiceResource(rn)
 	return res.Create(req)
 }
 
 // Read the current live state associated with a resource.
-func (k *pulumiserviceProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*pulumirpc.ReadResponse, error) {
+func (k *apolloconfigProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*pulumirpc.ReadResponse, error) {
 	rn := getResourceNameFromRequest(req)
 	res := k.getPulumiServiceResource(rn)
 	return res.Read(req)
 }
 
 // Update updates an existing resource with new values.
-func (k *pulumiserviceProvider) Update(ctx context.Context, req *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error) {
+func (k *apolloconfigProvider) Update(ctx context.Context, req *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error) {
 	rn := getResourceNameFromRequest(req)
 	res := k.getPulumiServiceResource(rn)
 	return res.Update(req)
@@ -247,21 +247,21 @@ func (k *pulumiserviceProvider) Update(ctx context.Context, req *pulumirpc.Updat
 
 // Delete tears down an existing resource with the given ID.  If it fails, the resource is assumed
 // to still exist.
-func (k *pulumiserviceProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
+func (k *apolloconfigProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
 	rn := getResourceNameFromRequest(req)
 	res := k.getPulumiServiceResource(rn)
 	return res.Delete(req)
 }
 
 // GetPluginInfo returns generic information about this plugin, like its version.
-func (k *pulumiserviceProvider) GetPluginInfo(context.Context, *pbempty.Empty) (*pulumirpc.PluginInfo, error) {
+func (k *apolloconfigProvider) GetPluginInfo(context.Context, *pbempty.Empty) (*pulumirpc.PluginInfo, error) {
 	return &pulumirpc.PluginInfo{
 		Version: k.version,
 	}, nil
 }
 
 // GetSchema returns the JSON-serialized schema for the provider.
-func (k *pulumiserviceProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRequest) (*pulumirpc.GetSchemaResponse, error) {
+func (k *apolloconfigProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRequest) (*pulumirpc.GetSchemaResponse, error) {
 	return &pulumirpc.GetSchemaResponse{
 		Schema: k.schema,
 	}, nil
@@ -272,12 +272,12 @@ func (k *pulumiserviceProvider) GetSchema(ctx context.Context, req *pulumirpc.Ge
 // creation error or an initialization error). Since Cancel is advisory and non-blocking, it is up
 // to the host to decide how long to wait after Cancel is called before (e.g.)
 // hard-closing any gRPC connection.
-func (k *pulumiserviceProvider) Cancel(context.Context, *pbempty.Empty) (*pbempty.Empty, error) {
+func (k *apolloconfigProvider) Cancel(context.Context, *pbempty.Empty) (*pbempty.Empty, error) {
 	// TODO
 	return &pbempty.Empty{}, nil
 }
 
-func (k *pulumiserviceProvider) getPulumiServiceResource(name string) PulumiServiceResource {
+func (k *apolloconfigProvider) getPulumiServiceResource(name string) PulumiServiceResource {
 	for _, r := range k.pulumiResources {
 		if r.Name() == name {
 			return r

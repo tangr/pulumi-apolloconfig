@@ -36,7 +36,7 @@ func (tp *PulumiServiceTeamEnvironmentPermissionResource) ToPulumiServiceTeamInp
 }
 
 func (tp *PulumiServiceTeamEnvironmentPermissionResource) Name() string {
-	return "pulumiservice:index:TeamEnvironmentPermission"
+	return "apolloconfig:index:TeamEnvironmentPermission"
 }
 
 func (tp *PulumiServiceTeamEnvironmentPermissionResource) Check(req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {

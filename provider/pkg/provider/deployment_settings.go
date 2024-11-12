@@ -881,7 +881,7 @@ func (ds *PulumiServiceDeploymentSettingsResource) Update(req *pulumirpc.UpdateR
 }
 
 func (ds *PulumiServiceDeploymentSettingsResource) Name() string {
-	return "pulumiservice:index:DeploymentSettings"
+	return "apolloconfig:index:DeploymentSettings"
 }
 
 func normalizeDurationString(input string) (*string, error) {

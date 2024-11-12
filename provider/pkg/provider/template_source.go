@@ -64,7 +64,7 @@ func (s *PulumiServiceTemplateSourceResource) ToPulumiServiceTemplateSourceInput
 }
 
 func (s *PulumiServiceTemplateSourceResource) Name() string {
-	return "pulumiservice:index:TemplateSource"
+	return "apolloconfig:index:TemplateSource"
 }
 
 func (s *PulumiServiceTemplateSourceResource) Diff(req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {

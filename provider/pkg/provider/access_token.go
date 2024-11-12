@@ -60,7 +60,7 @@ func (at *PulumiServiceAccessTokenResource) ToPulumiServiceAccessTokenInput(inpu
 }
 
 func (at *PulumiServiceAccessTokenResource) Name() string {
-	return "pulumiservice:index:AccessToken"
+	return "apolloconfig:index:AccessToken"
 }
 
 func (at *PulumiServiceAccessTokenResource) Diff(req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
@@ -146,7 +146,7 @@ func (at *PulumiServiceAccessTokenResource) Read(req *pulumirpc.ReadRequest) (*p
 	}, nil
 }
 
-func (at *PulumiServiceAccessTokenResource) Invoke(_ *pulumiserviceProvider, req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
+func (at *PulumiServiceAccessTokenResource) Invoke(_ *apolloconfigProvider, req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
 	return &pulumirpc.InvokeResponse{Return: nil}, fmt.Errorf("unknown function '%s'", req.Tok)
 }
 

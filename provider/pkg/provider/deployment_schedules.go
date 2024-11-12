@@ -381,7 +381,7 @@ func (st *PulumiServiceDeploymentScheduleResource) Read(req *pulumirpc.ReadReque
 }
 
 func (st *PulumiServiceDeploymentScheduleResource) Name() string {
-	return "pulumiservice:index:DeploymentSchedule"
+	return "apolloconfig:index:DeploymentSchedule"
 }
 
 func (st *PulumiServiceDeploymentScheduleResource) Configure(_ PulumiServiceConfig) {

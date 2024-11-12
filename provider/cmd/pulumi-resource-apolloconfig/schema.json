@@ -30,7 +30,7 @@
     }
   },
   "types": {
-    "pulumiservice:index:TeamStackPermissionScope": {
+    "apolloconfig:index:TeamStackPermissionScope": {
       "type": "number",
       "enum": [
         {
@@ -50,7 +50,7 @@
         }
       ]
     },
-    "pulumiservice:index:WebhookFormat": {
+    "apolloconfig:index:WebhookFormat": {
       "type": "string",
       "enum": [
         {
@@ -73,7 +73,7 @@
         }
       ]
     },
-    "pulumiservice:index:WebhookGroup": {
+    "apolloconfig:index:WebhookGroup": {
       "type": "string",
       "enum": [
         {
@@ -93,7 +93,7 @@
         }
       ]
     },
-    "pulumiservice:index:WebhookFilters": {
+    "apolloconfig:index:WebhookFilters": {
       "type": "string",
       "enum": [
         {
@@ -248,7 +248,7 @@
         }
       ]
     },
-    "pulumiservice:index:DeploymentSettingsExecutorContext": {
+    "apolloconfig:index:DeploymentSettingsExecutorContext": {
       "description": "The executor context defines information about the executor where the deployment is executed. If unspecified, the default 'pulumi/pulumi' image is used.",
       "properties": {
         "executorImage": {
@@ -261,17 +261,17 @@
         "executorImage"
       ]
     },
-    "pulumiservice:index:DeploymentSettingsSourceContext": {
+    "apolloconfig:index:DeploymentSettingsSourceContext": {
       "description": "Settings related to the source of the deployment.",
       "properties": {
         "git": {
-          "$ref": "#/types/pulumiservice:index:DeploymentSettingsGitSource",
+          "$ref": "#/types/apolloconfig:index:DeploymentSettingsGitSource",
           "description": "Git source settings for a deployment."
         }
       },
       "type": "object"
     },
-    "pulumiservice:index:DeploymentSettingsGitSource": {
+    "apolloconfig:index:DeploymentSettingsGitSource": {
       "description": "Git source settings for a deployment.",
       "properties": {
         "repoUrl": {
@@ -279,7 +279,7 @@
           "description": "The repository URL to use for git settings. Should not be specified if there are `gitHub` settings for this deployment."
         },
         "gitAuth": {
-          "$ref": "#/types/pulumiservice:index:DeploymentSettingsGitSourceGitAuth",
+          "$ref": "#/types/apolloconfig:index:DeploymentSettingsGitSourceGitAuth",
           "description": "Git authentication configuration for this deployment. Should not be specified if there are `gitHub` settings for this deployment."
         },
         "branch": {
@@ -297,21 +297,21 @@
       },
       "type": "object"
     },
-    "pulumiservice:index:DeploymentSettingsGitSourceGitAuth": {
+    "apolloconfig:index:DeploymentSettingsGitSourceGitAuth": {
       "description": "Git source settings for a deployment.",
       "properties": {
         "sshAuth": {
-          "$ref": "#/types/pulumiservice:index:DeploymentSettingsGitAuthSSHAuth",
+          "$ref": "#/types/apolloconfig:index:DeploymentSettingsGitAuthSSHAuth",
           "description": "SSH auth for git authentication. Only one of `personalAccessToken`, `sshAuth`, or `basicAuth` must be defined."
         },
         "basicAuth": {
-          "$ref": "#/types/pulumiservice:index:DeploymentSettingsGitAuthBasicAuth",
+          "$ref": "#/types/apolloconfig:index:DeploymentSettingsGitAuthBasicAuth",
           "description": "Basic auth for git authentication. Only one of `personalAccessToken`, `sshAuth`, or `basicAuth` must be defined."
         }
       },
       "type": "object"
     },
-    "pulumiservice:index:DeploymentSettingsGitAuthSSHAuth": {
+    "apolloconfig:index:DeploymentSettingsGitAuthSSHAuth": {
       "description": "Git source settings for a deployment.",
       "type": "object",
       "properties": {
@@ -330,7 +330,7 @@
         "sshPrivateKey"
       ]
     },
-    "pulumiservice:index:DeploymentSettingsGitAuthBasicAuth": {
+    "apolloconfig:index:DeploymentSettingsGitAuthBasicAuth": {
       "description": "Git source settings for a deployment.",
       "properties": {
         "username": {
@@ -350,7 +350,7 @@
       ],
       "type": "object"
     },
-    "pulumiservice:index:DeploymentSettingsGithub": {
+    "apolloconfig:index:DeploymentSettingsGithub": {
       "description": "GitHub settings for the deployment.",
       "properties": {
         "repository": {
@@ -382,7 +382,7 @@
       },
       "type": "object"
     },
-    "pulumiservice:index:DeploymentSettingsOperationContext": {
+    "apolloconfig:index:DeploymentSettingsOperationContext": {
       "description": "Settings related to the Pulumi operation environment during the deployment.",
       "properties": {
         "preRunCommands": {
@@ -400,17 +400,17 @@
           "description": "Environment variables to set for the deployment."
         },
         "options": {
-          "$ref": "#/types/pulumiservice:index:OperationContextOptions",
+          "$ref": "#/types/apolloconfig:index:OperationContextOptions",
           "description": "Options to override default behavior during the deployment."
         },
         "oidc": {
-          "$ref": "#/types/pulumiservice:index:OperationContextOIDC",
+          "$ref": "#/types/apolloconfig:index:OperationContextOIDC",
           "description": "OIDC configuration to use during the deployment."
         }
       },
       "type": "object"
     },
-    "pulumiservice:index:OperationContextOptions": {
+    "apolloconfig:index:OperationContextOptions": {
       "type": "object",
       "properties": {
         "skipInstallDependencies": {
@@ -431,24 +431,24 @@
         }
       }
     },
-    "pulumiservice:index:OperationContextOIDC": {
+    "apolloconfig:index:OperationContextOIDC": {
       "type": "object",
       "properties": {
         "aws": {
-          "$ref": "#/types/pulumiservice:index:AWSOIDCConfiguration",
+          "$ref": "#/types/apolloconfig:index:AWSOIDCConfiguration",
           "description": "AWS-specific OIDC configuration."
         },
         "gcp": {
-          "$ref": "#/types/pulumiservice:index:GCPOIDCConfiguration",
+          "$ref": "#/types/apolloconfig:index:GCPOIDCConfiguration",
           "description": "GCP-specific OIDC configuration."
         },
         "azure": {
-          "$ref": "#/types/pulumiservice:index:AzureOIDCConfiguration",
+          "$ref": "#/types/apolloconfig:index:AzureOIDCConfiguration",
           "description": "Azure-specific OIDC configuration."
         }
       }
     },
-    "pulumiservice:index:AWSOIDCConfiguration": {
+    "apolloconfig:index:AWSOIDCConfiguration": {
       "type": "object",
       "properties": {
         "duration": {
@@ -476,7 +476,7 @@
         "sessionName"
       ]
     },
-    "pulumiservice:index:GCPOIDCConfiguration": {
+    "apolloconfig:index:GCPOIDCConfiguration": {
       "type": "object",
       "properties": {
         "projectId": {
@@ -511,7 +511,7 @@
         "serviceAccount"
       ]
     },
-    "pulumiservice:index:AzureOIDCConfiguration": {
+    "apolloconfig:index:AzureOIDCConfiguration": {
       "type": "object",
       "properties": {
         "clientId": {
@@ -533,7 +533,7 @@
         "subscriptionId"
       ]
     },
-    "pulumiservice:index:PulumiOperation": {
+    "apolloconfig:index:PulumiOperation": {
       "type": "string",
       "enum": [
         {
@@ -554,7 +554,7 @@
         }
       ]
     },
-    "pulumiservice:index:DeploymentSettingsCacheOptions": {
+    "apolloconfig:index:DeploymentSettingsCacheOptions": {
       "description": "Dependency cache settings for the deployment",
       "properties": {
         "enable": {
@@ -565,7 +565,7 @@
       },
       "type": "object"
     },
-    "pulumiservice:index:EnvironmentPermission": {
+    "apolloconfig:index:EnvironmentPermission": {
       "type": "string",
       "enum": [
         {
@@ -590,7 +590,7 @@
         }
       ]
     },
-    "pulumiservice:index:TemplateSourceDestination": {
+    "apolloconfig:index:TemplateSourceDestination": {
       "type": "object",
       "properties": {
         "url": {
@@ -601,7 +601,7 @@
     }
   },
   "resources": {
-    "pulumiservice:index:Stack": {
+    "apolloconfig:index:Stack": {
       "description": "A stack is a collection of resources that share a common lifecycle. Stacks are uniquely identified by their name and the project they belong to.",
         "properties": {
             "organizationName": {
@@ -650,7 +650,7 @@
             "stackName"
         ]
     },
-    "pulumiservice:index:AgentPool": {
+    "apolloconfig:index:AgentPool": {
       "description": "Agent Pool for customer managed deployments",
       "properties": {
         "agentPoolId": {
@@ -708,7 +708,7 @@
         "organizationName"
       ]
     },
-    "pulumiservice:index:AccessToken": {
+    "apolloconfig:index:AccessToken": {
       "description": "Access tokens allow a user to authenticate against the Pulumi Cloud",
       "properties": {
         "description": {
@@ -735,7 +735,7 @@
         "description"
       ]
     },
-    "pulumiservice:index:Team": {
+    "apolloconfig:index:Team": {
       "description": "The Pulumi Cloud offers role-based access control (RBAC) using teams. Teams allow organization admins to assign a set of stack permissions to a group of users.",
       "properties": {
         "teamType": {
@@ -813,7 +813,7 @@
         "teamType"
       ]
     },
-    "pulumiservice:index:TeamAccessToken": {
+    "apolloconfig:index:TeamAccessToken": {
       "description": "The Pulumi Cloud allows users to create access tokens scoped to team. Team access tokens is a resource to create them and assign them to a team",
       "properties": {
         "name": {
@@ -868,7 +868,7 @@
         "organizationName"
       ]
     },
-    "pulumiservice:index:OrgAccessToken": {
+    "apolloconfig:index:OrgAccessToken": {
       "description": "The Pulumi Cloud allows users to create access tokens scoped to orgs. Org access tokens is a resource to create them and assign them to an org",
       "properties": {
         "name": {
@@ -922,8 +922,8 @@
         "organizationName"
       ]
     },
-    "pulumiservice:index:Webhook": {
-      "description": "Pulumi Webhooks allow you to notify external services of events happening within your Pulumi organization or stack. For example, you can trigger a notification whenever a stack is updated. Whenever an event occurs, Pulumi will send an HTTP POST request to all registered webhooks. The webhook can then be used to emit some notification, start running integration tests, or even update additional stacks.\n\n### Import\n\nPulumi webhooks can be imported using the `id`, which for webhooks is `{org}/{project}/{stack}/{webhook-name}` e.g.,\n\n```sh\n $ pulumi import pulumiservice:index:Webhook my_webhook my-org/my-project/my-stack/4b0d0671\n```\n\n",
+    "apolloconfig:index:Webhook": {
+      "description": "Pulumi Webhooks allow you to notify external services of events happening within your Pulumi organization or stack. For example, you can trigger a notification whenever a stack is updated. Whenever an event occurs, Pulumi will send an HTTP POST request to all registered webhooks. The webhook can then be used to emit some notification, start running integration tests, or even update additional stacks.\n\n### Import\n\nPulumi webhooks can be imported using the `id`, which for webhooks is `{org}/{project}/{stack}/{webhook-name}` e.g.,\n\n```sh\n $ pulumi import apolloconfig:index:Webhook my_webhook my-org/my-project/my-stack/4b0d0671\n```\n\n",
       "properties": {
         "name": {
           "description": "Webhook identifier generated by Pulumi Cloud.",
@@ -964,20 +964,20 @@
         },
         "format": {
           "description": "Format of the webhook payload. Can be either `raw`, `slack`, `ms_teams` or `pulumi_deployments`. Defaults to `raw`.",
-          "$ref": "#/types/pulumiservice:index:WebhookFormat"
+          "$ref": "#/types/apolloconfig:index:WebhookFormat"
         },
         "filters": {
           "description": "Optional set of filters to apply to the webhook. See [webhook docs](https://www.pulumi.com/docs/intro/pulumi-service/webhooks/#filters) for more information.",
           "type": "array",
           "items": {
-            "$ref": "#/types/pulumiservice:index:WebhookFilters"
+            "$ref": "#/types/apolloconfig:index:WebhookFilters"
           }
         },
         "groups": {
           "description": "Optional set of filter groups to apply to the webhook. See [webhook docs](https://www.pulumi.com/docs/intro/pulumi-service/webhooks/#groups) for more information.",
           "type": "array",
           "items": {
-            "$ref": "#/types/pulumiservice:index:WebhookGroup"
+            "$ref": "#/types/apolloconfig:index:WebhookGroup"
           }
         }
       },
@@ -1025,21 +1025,21 @@
         },
         "format": {
           "description": "Format of the webhook payload. Can be either `raw` or `slack`. Defaults to `raw`.",
-          "$ref": "#/types/pulumiservice:index:WebhookFormat",
+          "$ref": "#/types/apolloconfig:index:WebhookFormat",
           "default": "raw"
         },
         "filters": {
           "description": "Optional set of filters to apply to the webhook. See [webhook docs](https://www.pulumi.com/docs/intro/pulumi-service/webhooks/#filters) for more information.",
           "type": "array",
           "items": {
-            "$ref": "#/types/pulumiservice:index:WebhookFilters"
+            "$ref": "#/types/apolloconfig:index:WebhookFilters"
           }
         },
         "groups": {
           "description": "Optional set of filter groups to apply to the webhook. See [webhook docs](https://www.pulumi.com/docs/intro/pulumi-service/webhooks/#groups) for more information.",
           "type": "array",
           "items": {
-            "$ref": "#/types/pulumiservice:index:WebhookGroup"
+            "$ref": "#/types/apolloconfig:index:WebhookGroup"
           }
         }
       },
@@ -1050,8 +1050,8 @@
         "payloadUrl"
       ]
     },
-    "pulumiservice:index:DeploymentSettings": {
-      "description": "Deployment settings configure Pulumi Deployments for a stack.\n\n### Import\n\nDeployment settings can be imported using the `id`, which for deployment settings is `{org}/{project}/{stack}` e.g.,\n\n```sh\n $ pulumi import pulumiservice:index:DeploymentSettings my_settings my-org/my-project/my-stack\n```\n\n",
+    "apolloconfig:index:DeploymentSettings": {
+      "description": "Deployment settings configure Pulumi Deployments for a stack.\n\n### Import\n\nDeployment settings can be imported using the `id`, which for deployment settings is `{org}/{project}/{stack}` e.g.,\n\n```sh\n $ pulumi import apolloconfig:index:DeploymentSettings my_settings my-org/my-project/my-stack\n```\n\n",
       "properties": {
         "organization": {
           "description": "Organization name.",
@@ -1066,19 +1066,19 @@
           "type": "string"
         },
         "executorContext": {
-          "$ref": "#/types/pulumiservice:index:DeploymentSettingsExecutorContext",
+          "$ref": "#/types/apolloconfig:index:DeploymentSettingsExecutorContext",
           "description": "Settings related to the deployment executor."
         },
         "sourceContext": {
-          "$ref": "#/types/pulumiservice:index:DeploymentSettingsSourceContext",
+          "$ref": "#/types/apolloconfig:index:DeploymentSettingsSourceContext",
           "description": "Settings related to the source of the deployment."
         },
         "github": {
-          "$ref": "#/types/pulumiservice:index:DeploymentSettingsGithub",
+          "$ref": "#/types/apolloconfig:index:DeploymentSettingsGithub",
           "description": "GitHub settings for the deployment."
         },
         "operationContext": {
-          "$ref": "#/types/pulumiservice:index:DeploymentSettingsOperationContext",
+          "$ref": "#/types/apolloconfig:index:DeploymentSettingsOperationContext",
           "description": "Settings related to the Pulumi operation environment during the deployment."
         },
         "agentPoolId": {
@@ -1086,7 +1086,7 @@
           "type": "string"
         },
         "cacheOptions": {
-          "$ref": "#/types/pulumiservice:index:DeploymentSettingsCacheOptions",
+          "$ref": "#/types/apolloconfig:index:DeploymentSettingsCacheOptions",
           "description": "Dependency cache settings for the deployment"
         }
       },
@@ -1109,19 +1109,19 @@
           "type": "string"
         },
         "executorContext": {
-          "$ref": "#/types/pulumiservice:index:DeploymentSettingsExecutorContext",
+          "$ref": "#/types/apolloconfig:index:DeploymentSettingsExecutorContext",
           "description": "Settings related to the deployment executor."
         },
         "sourceContext": {
-          "$ref": "#/types/pulumiservice:index:DeploymentSettingsSourceContext",
+          "$ref": "#/types/apolloconfig:index:DeploymentSettingsSourceContext",
           "description": "Settings related to the source of the deployment."
         },
         "github": {
-          "$ref": "#/types/pulumiservice:index:DeploymentSettingsGithub",
+          "$ref": "#/types/apolloconfig:index:DeploymentSettingsGithub",
           "description": "GitHub settings for the deployment."
         },
         "operationContext": {
-          "$ref": "#/types/pulumiservice:index:DeploymentSettingsOperationContext",
+          "$ref": "#/types/apolloconfig:index:DeploymentSettingsOperationContext",
           "description": "Settings related to the Pulumi operation environment during the deployment."
         },
         "agentPoolId": {
@@ -1129,7 +1129,7 @@
           "type": "string"
         },
         "cacheOptions": {
-          "$ref": "#/types/pulumiservice:index:DeploymentSettingsCacheOptions",
+          "$ref": "#/types/apolloconfig:index:DeploymentSettingsCacheOptions",
           "description": "Dependency cache settings for the deployment"
         }
       },
@@ -1139,7 +1139,7 @@
         "stack"
       ]
     },
-    "pulumiservice:index:StackTag": {
+    "apolloconfig:index:StackTag": {
       "description": "Stacks have associated metadata in the form of tags. Each tag consists of a name and value.",
       "properties": {
         "organization": {
@@ -1200,7 +1200,7 @@
         "value"
       ]
     },
-    "pulumiservice:index:TeamStackPermission": {
+    "apolloconfig:index:TeamStackPermission": {
       "description": "Grants a team permissions to the specified stack.",
       "inputProperties": {
         "team": {
@@ -1220,7 +1220,7 @@
           "type": "string"
         },
         "permission": {
-          "$ref": "#/types/pulumiservice:index:TeamStackPermissionScope",
+          "$ref": "#/types/apolloconfig:index:TeamStackPermissionScope",
           "plain": true,
           "description": "Sets the permission level that this team will be granted to the stack."
         }
@@ -1233,7 +1233,7 @@
         "permission"
       ]
     },
-    "pulumiservice:index:DeploymentSchedule": {
+    "apolloconfig:index:DeploymentSchedule": {
       "description": "A scheduled recurring or single time run of a pulumi command.",
       "properties": {
         "organization": {
@@ -1258,7 +1258,7 @@
         },
         "pulumiOperation": {
           "description": "Which operation to run.",
-          "$ref": "#/types/pulumiservice:index:PulumiOperation"
+          "$ref": "#/types/apolloconfig:index:PulumiOperation"
         },
         "scheduleId": {
           "description": "Schedule ID of the created schedule, assigned by Pulumi Cloud.",
@@ -1295,7 +1295,7 @@
         },
         "pulumiOperation": {
           "description": "Which command to run.",
-          "$ref": "#/types/pulumiservice:index:PulumiOperation"
+          "$ref": "#/types/apolloconfig:index:PulumiOperation"
         }
       },
       "requiredInputs": [
@@ -1305,7 +1305,7 @@
         "pulumiOperation"
       ]
     },
-    "pulumiservice:index:DriftSchedule": {
+    "apolloconfig:index:DriftSchedule": {
       "description": "A cron schedule to run drift detection.",
       "properties": {
         "organization": {
@@ -1371,7 +1371,7 @@
         "scheduleCron"
       ]
     },
-    "pulumiservice:index:TtlSchedule": {
+    "apolloconfig:index:TtlSchedule": {
       "description": "A scheduled stack destroy run.",
       "properties": {
         "organization": {
@@ -1437,7 +1437,7 @@
         "timestamp"
       ]
     },
-    "pulumiservice:index:Environment": {
+    "apolloconfig:index:Environment": {
       "description": "An ESC Environment.",
       "properties": {
         "organization": {
@@ -1493,12 +1493,12 @@
         "yaml"
       ]
     },
-    "pulumiservice:index:TeamEnvironmentPermission": {
+    "apolloconfig:index:TeamEnvironmentPermission": {
       "description": "A permission for a team to use an environment.",
       "properties": {
         "permission": {
           "description": "Which permission level to grant to the specified team.",
-          "$ref": "#/types/pulumiservice:index:EnvironmentPermission"
+          "$ref": "#/types/apolloconfig:index:EnvironmentPermission"
         }
       },
       "inputProperties": {
@@ -1521,7 +1521,7 @@
         },
         "permission": {
           "description": "Which permission level to grant to the specified team.",
-          "$ref": "#/types/pulumiservice:index:EnvironmentPermission"
+          "$ref": "#/types/apolloconfig:index:EnvironmentPermission"
         }
       },
       "requiredInputs": [
@@ -1531,7 +1531,7 @@
         "permission"
       ]
     },
-    "pulumiservice:index:EnvironmentVersionTag": {
+    "apolloconfig:index:EnvironmentVersionTag": {
       "description": "A tag on a specific revision of an environment.",
       "properties": {
         "organization": {
@@ -1592,7 +1592,7 @@
         "revision"
       ]
     },
-    "pulumiservice:index:TemplateSource": {
+    "apolloconfig:index:TemplateSource": {
       "description": "A source for Pulumi templates",
       "properties": {
         "organizationName": {
@@ -1609,7 +1609,7 @@
         },
         "destination": {
           "description": "The default destination for projects using templates from this source.",
-          "$ref": "#/types/pulumiservice:index:TemplateSourceDestination"
+          "$ref": "#/types/apolloconfig:index:TemplateSourceDestination"
         }
       },
       "required": [
@@ -1632,7 +1632,7 @@
         },
         "destination": {
           "description": "The default destination for projects using templates from this source.",
-          "$ref": "#/types/pulumiservice:index:TemplateSourceDestination"
+          "$ref": "#/types/apolloconfig:index:TemplateSourceDestination"
         }
       },
       "requiredInputs": [
@@ -1645,7 +1645,7 @@
   "language": {
     "csharp": {
       "namespaces": {
-        "pulumiservice": "PulumiService"
+        "apolloconfig": "apolloconfig"
       },
       "packageReferences": {
         "Pulumi": "3.*"
@@ -1653,7 +1653,7 @@
     },
     "go": {
       "generateResourceContainerTypes": true,
-      "importBasePath": "github.com/tangr/pulumi-apolloconfig/sdk/go/pulumiservice"
+      "importBasePath": "github.com/tangr/pulumi-apolloconfig/sdk/go/apolloconfig"
     },
     "nodejs": {
       "packageName": "@pulumi/apolloconfig",
@@ -1662,7 +1662,7 @@
       }
     },
     "python": {
-      "packageName": "pulumi_pulumiservice",
+      "packageName": "pulumi_apolloconfig",
       "requires": {
         "pulumi": ">=3.0.0,<4.0.0"
       }

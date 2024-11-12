@@ -234,7 +234,7 @@ func (st *PulumiServiceTtlScheduleResource) Read(req *pulumirpc.ReadRequest) (*p
 }
 
 func (st *PulumiServiceTtlScheduleResource) Name() string {
-	return "pulumiservice:index:TtlSchedule"
+	return "apolloconfig:index:TtlSchedule"
 }
 
 func (st *PulumiServiceTtlScheduleResource) Configure(_ PulumiServiceConfig) {

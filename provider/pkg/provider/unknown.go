@@ -12,7 +12,7 @@ type PulumiServiceUnknownResource struct{}
 type PulumiServiceUnknownFunction struct{}
 
 func (u *PulumiServiceUnknownResource) Name() string {
-	return "pulumiservice:index:Unknown"
+	return "apolloconfig:index:Unknown"
 }
 
 func (u *PulumiServiceUnknownResource) Configure(config PulumiServiceConfig) {
@@ -47,12 +47,12 @@ func createUnknownResourceErrorFromRequest(req ResourceBase) error {
 	return fmt.Errorf("unknown resource type '%s'", rn)
 }
 
-func (u *PulumiServiceUnknownResource) Invoke(s *pulumiserviceProvider, req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
+func (u *PulumiServiceUnknownResource) Invoke(s *apolloconfigProvider, req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
 	return &pulumirpc.InvokeResponse{Return: nil}, fmt.Errorf("unknown function '%s'", req.Tok)
 }
 
 func (f *PulumiServiceUnknownFunction) Name() string {
-	return "pulumiservice:index:Unknown"
+	return "apolloconfig:index:Unknown"
 }
 
 func (f *PulumiServiceUnknownFunction) Configure(config PulumiServiceConfig) {

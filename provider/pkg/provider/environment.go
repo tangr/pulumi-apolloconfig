@@ -384,7 +384,7 @@ func (st *PulumiServiceEnvironmentResource) Read(req *pulumirpc.ReadRequest) (*p
 }
 
 func (st *PulumiServiceEnvironmentResource) Name() string {
-	return "pulumiservice:index:Environment"
+	return "apolloconfig:index:Environment"
 }
 
 func (st *PulumiServiceEnvironmentResource) Configure(_ PulumiServiceConfig) {

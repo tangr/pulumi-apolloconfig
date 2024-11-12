@@ -106,7 +106,7 @@ func ToPulumiServiceTeamInput(inputMap resource.PropertyMap) PulumiServiceTeamIn
 }
 
 func (t *PulumiServiceTeamResource) Name() string {
-	return "pulumiservice:index:Team"
+	return "apolloconfig:index:Team"
 }
 
 func (t *PulumiServiceTeamResource) Configure(config PulumiServiceConfig) {

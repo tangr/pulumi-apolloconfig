@@ -152,7 +152,7 @@ func (wh *PulumiServiceWebhookResource) ToPulumiServiceWebhookProperties(propMap
 }
 
 func (wh *PulumiServiceWebhookResource) Name() string {
-	return "pulumiservice:index:Webhook"
+	return "apolloconfig:index:Webhook"
 }
 
 func (wh *PulumiServiceWebhookResource) Configure(config PulumiServiceConfig) {
