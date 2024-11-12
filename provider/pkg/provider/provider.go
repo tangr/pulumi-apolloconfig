@@ -33,7 +33,7 @@ import (
 	"github.com/tangr/pulumi-apolloconfig/provider/pkg/internal/pulumiapi"
 )
 
-type PulumiServiceResource interface {
+type ApolloconfigResource interface {
 	Configure(config PulumiServiceConfig)
 	Diff(req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error)
 	Create(req *pulumirpc.CreateRequest) (*pulumirpc.CreateResponse, error)
@@ -51,7 +51,7 @@ type apolloconfigProvider struct {
 	name            string
 	version         string
 	schema          string
-	pulumiResources []PulumiServiceResource
+	pulumiResources []ApolloconfigResource
 	AccessToken     string
 }
 
@@ -125,7 +125,7 @@ func (k *apolloconfigProvider) Configure(_ context.Context, req *pulumirpc.Confi
 		return nil, err
 	}
 
-	k.pulumiResources = []PulumiServiceResource{
+	k.pulumiResources = []ApolloconfigResource{
 		&PulumiServiceTeamResource{
 			client: client,
 		},
@@ -173,35 +173,35 @@ func (k *apolloconfigProvider) StreamInvoke(req *pulumirpc.InvokeRequest, server
 // the provider inputs are using for detecting and rendering diffs.
 func (k *apolloconfigProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
 	rn := getResourceNameFromRequest(req)
-	res := k.getPulumiServiceResource(rn)
+	res := k.getApolloconfigResource(rn)
 	return res.Check(req)
 }
 
 // Diff checks what impacts a hypothetical update will have on the resource's properties.
 func (k *apolloconfigProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
 	rn := getResourceNameFromRequest(req)
-	res := k.getPulumiServiceResource(rn)
+	res := k.getApolloconfigResource(rn)
 	return res.Diff(req)
 }
 
 // Create allocates a new instance of the provided resource and returns its unique ID afterwards.
 func (k *apolloconfigProvider) Create(ctx context.Context, req *pulumirpc.CreateRequest) (*pulumirpc.CreateResponse, error) {
 	rn := getResourceNameFromRequest(req)
-	res := k.getPulumiServiceResource(rn)
+	res := k.getApolloconfigResource(rn)
 	return res.Create(req)
 }
 
 // Read the current live state associated with a resource.
 func (k *apolloconfigProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*pulumirpc.ReadResponse, error) {
 	rn := getResourceNameFromRequest(req)
-	res := k.getPulumiServiceResource(rn)
+	res := k.getApolloconfigResource(rn)
 	return res.Read(req)
 }
 
 // Update updates an existing resource with new values.
 func (k *apolloconfigProvider) Update(ctx context.Context, req *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error) {
 	rn := getResourceNameFromRequest(req)
-	res := k.getPulumiServiceResource(rn)
+	res := k.getApolloconfigResource(rn)
 	return res.Update(req)
 }
 
@@ -209,7 +209,7 @@ func (k *apolloconfigProvider) Update(ctx context.Context, req *pulumirpc.Update
 // to still exist.
 func (k *apolloconfigProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
 	rn := getResourceNameFromRequest(req)
-	res := k.getPulumiServiceResource(rn)
+	res := k.getApolloconfigResource(rn)
 	return res.Delete(req)
 }
 
@@ -237,7 +237,7 @@ func (k *apolloconfigProvider) Cancel(context.Context, *pbempty.Empty) (*pbempty
 	return &pbempty.Empty{}, nil
 }
 
-func (k *apolloconfigProvider) getPulumiServiceResource(name string) PulumiServiceResource {
+func (k *apolloconfigProvider) getApolloconfigResource(name string) ApolloconfigResource {
 	for _, r := range k.pulumiResources {
 		if r.Name() == name {
 			return r
