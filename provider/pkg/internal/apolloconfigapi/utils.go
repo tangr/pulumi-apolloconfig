@@ -13,15 +13,6 @@
 // limitations under the License.
 package apolloconfigapi
 
-func contains(s []string, e string) bool {
-	for _, a := range s {
-		if a == e {
-			return true
-		}
-	}
-	return false
-}
-
 func ok(code int) bool {
 	return code >= 200 && code < 300
 }
