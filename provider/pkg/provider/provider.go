@@ -30,6 +30,7 @@ import (
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
+	"github.com/tangr/pulumi-apolloconfig/provider/pkg/internal/apolloconfigapi"
 	"github.com/tangr/pulumi-apolloconfig/provider/pkg/internal/pulumiapi"
 )
 
@@ -119,8 +120,11 @@ func (k *apolloconfigProvider) Configure(_ context.Context, req *pulumirpc.Confi
 		return nil, err
 	}
 	client, err := pulumiapi.NewClient(&httpClient, *token, *url)
+	if err != nil {
+		return nil, err
+	}
 
-
+	apolloclient, err := apolloconfigapi.NewClient(&httpClient, *token, *url)
 	if err != nil {
 		return nil, err
 	}
@@ -140,6 +144,9 @@ func (k *apolloconfigProvider) Configure(_ context.Context, req *pulumirpc.Confi
 		},
 		&PulumiServiceAgentPoolResource{
 			client: client,
+		},
+		&ApolloConfigItemResource{
+			client: apolloclient,
 		},
 	}
 
