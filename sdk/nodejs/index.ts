@@ -15,6 +15,11 @@ export type AgentPool = import("./agentPool").AgentPool;
 export const AgentPool: typeof import("./agentPool").AgentPool = null as any;
 utilities.lazyLoad(exports, ["AgentPool"], () => require("./agentPool"));
 
+export { ApolloItemArgs } from "./apolloItem";
+export type ApolloItem = import("./apolloItem").ApolloItem;
+export const ApolloItem: typeof import("./apolloItem").ApolloItem = null as any;
+utilities.lazyLoad(exports, ["ApolloItem"], () => require("./apolloItem"));
+
 export { DeploymentScheduleArgs } from "./deploymentSchedule";
 export type DeploymentSchedule = import("./deploymentSchedule").DeploymentSchedule;
 export const DeploymentSchedule: typeof import("./deploymentSchedule").DeploymentSchedule = null as any;
@@ -116,6 +121,8 @@ const _module = {
                 return new AccessToken(name, <any>undefined, { urn })
             case "apolloconfig:index:AgentPool":
                 return new AgentPool(name, <any>undefined, { urn })
+            case "apolloconfig:index:ApolloItem":
+                return new ApolloItem(name, <any>undefined, { urn })
             case "apolloconfig:index:DeploymentSchedule":
                 return new DeploymentSchedule(name, <any>undefined, { urn })
             case "apolloconfig:index:DeploymentSettings":
