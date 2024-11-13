@@ -96,7 +96,7 @@ func (c *Client) sendRequest(req *http.Request, resBody interface{}) (*http.Resp
 		var errRes ErrorResponse
 		err = json.Unmarshal(body, &errRes)
 		if err != nil {
-			return res, fmt.Errorf("failed to parse response body from url %q, status code %d: %w\n\n%s\n",
+			return res, fmt.Errorf("failed to parse response body from url %q, status code %d: %w\n\n%s",
 				req.URL.String(), res.StatusCode, err, body)
 		}
 		if errRes.StatusCode == 0 {
