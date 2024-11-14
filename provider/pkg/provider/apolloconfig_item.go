@@ -195,7 +195,7 @@ func (aci *ApolloConfigItemResource) Create(req *pulumirpc.CreateRequest) (*pulu
 	}
 
 	return &pulumirpc.CreateResponse{
-		Id:         input.OrgName + "/" + input.Name + "/" + apolloItem.ID,
+		Id:         fmt.Sprintf("%s/%s/%s/%s/%s", input.Env, input.AppId, input.ClusterName, input.Namespace, input.Key),
 		Properties: outputProperties,
 	}, nil
 
