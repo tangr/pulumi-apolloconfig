@@ -79,6 +79,14 @@ type CreateUpdateApollItemPostData struct {
 	DataChangeCreatedBy       string `json:"dataChangeCreatedBy"`
 }
 
+type UpdateApollItemPostData struct {
+	Key                       string `json:"key"`
+	Value                     string `json:"value"`
+	Comment                   string `json:"comment"`
+	DataChangeLastModifiedBy  string `json:"dataChangeLastModifiedBy"`
+	DataChangeCreatedBy       string `json:"dataChangeCreatedBy"`
+}
+
 func (p *CreateUpdateApollItemRequest) Validate() error {
     if p.AppID == "" {
         return errors.New("empty appId")
