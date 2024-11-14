@@ -186,9 +186,6 @@ func (aci *ApolloConfigItemResource) Delete(req *pulumirpc.DeleteRequest) (*pbem
 	}
 
 	pool := aci.ToApolloConfigItemInput(inputs)
-	if err != nil {
-		return nil, err
-	}
 
 	err = aci.deleteApolloItem(ctx, req.Id, pool.ForceDestroy)
 
