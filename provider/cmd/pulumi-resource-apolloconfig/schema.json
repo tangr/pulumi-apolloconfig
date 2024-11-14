@@ -706,6 +706,10 @@
           "description": "The comment.",
           "type": "string"
         },
+        "operator": {
+          "description": "The operator for delete item.",
+          "type": "string"
+        },
         "dataChangeCreatedBy": {
           "description": "The dataChangeCreatedBy.",
           "type": "string"
@@ -764,6 +768,10 @@
         },
         "comment": {
           "description": "The comment.",
+          "type": "string"
+        },
+        "operator": {
+          "description": "The operator for delete item.",
           "type": "string"
         },
         "dataChangeCreatedBy": {
