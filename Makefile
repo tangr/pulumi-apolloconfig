@@ -170,6 +170,7 @@ up::
 	pulumi stack select dev && \
 	pulumi config set name dev && \
 	pulumi up -y
+	# pulumi up -y -f
 
 down::
 	$(call pulumi_login) \
