@@ -1,0 +1,15 @@
+{
+    "terminal.integrated.env.linux": {
+        "PATH": "${workspaceFolder}/bin:${env:HOME}/.pulumi/bin:${env:PATH}",
+        "PULUMI_HOME": "${env:HOME}/.pulumi",
+        "PULUMI_PLUGIN_PATH": "${env:HOME}/.pulumi/plugins"
+    },
+    "terminal.integrated.env.osx": {
+        "PATH": "${workspaceFolder}/bin:${env:HOME}/.pulumi/bin:${env:PATH}",
+        "PULUMI_HOME": "${env:HOME}/.pulumi",
+        "PULUMI_PLUGIN_PATH": "${env:HOME}/.pulumi/plugins"
+    },
+    "terminal.integrated.env.windows": {
+        "PATH": "${env:PATH};${env:USERPROFILE}\\.pulumi\\bin"
+    }
+}
