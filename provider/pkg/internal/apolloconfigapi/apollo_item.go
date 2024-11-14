@@ -23,7 +23,7 @@ import (
 )
 
 type ApolloItemClient interface {
-	CreateApolloItem(ctx context.Context, orgName, name, description string) (*ApollItem, error)
+	CreateApolloItem(ctx context.Context, appId, namespace, env, clusterName, key, value, comment, dataChangeCreatedBy, dataChangeLastModifiedBy string) (*ApollItem, error)
 	UpdateApolloItem(ctx context.Context, apolloItemId, orgName, name, description string) error
 	DeleteApolloItem(ctx context.Context, apolloItemId, orgName string, forceDestroy bool) error
 	GetApolloItem(ctx context.Context, apolloItemId, orgName string) (*ApollItem, error)
@@ -42,28 +42,42 @@ type createApollItemResponse struct {
 }
 
 type createUpdateApollItemRequest struct {
-	Name        string `json:"name"`
-	Description string `json:"description,omitempty"`
+	Key                       string `json:"key"`
+	Value                     string `json:"value"`
+	Comment                   string `json:"comment"`
+	DataChangeCreatedBy       string `json:"dataChangeCreatedBy"`
 }
 
-func (c *Client) CreateApolloItem(ctx context.Context, orgName, name, description string) (*ApollItem, error) {
+func (c *Client) CreateApolloItem(ctx context.Context, appId, namespace, env, clusterName, key, value, comment, dataChangeCreatedBy, dataChangeLastModifiedBy string) (*ApollItem, error) {
 
-	if len(orgName) == 0 {
-		return nil, errors.New("empty orgName")
+	if len(appId) == 0 {
+		return nil, errors.New("empty appId")
+	}
+	if len(namespace) == 0 {
+		return nil, errors.New("empty namespace")
+	}
+	if len(env) == 0 {
+		return nil, errors.New("empty env")
+	}
+	if len(clusterName) == 0 {
+		return nil, errors.New("empty clusterName")
 	}
 
-	if len(name) == 0 {
-		return nil, errors.New("empty name")
-	}
-
-	apiPath := path.Join("orgs", orgName, "apollo-items")
+	apiPath := path.Join("v1", "envs", env, "apps", appId, "clusters", clusterName, "namespaces", namespace, "items")
 
 	createReq := createUpdateApollItemRequest{
-		Name:        name,
-		Description: description,
+		Key:                 key,
+		Value:               value,
+		Comment:             comment,
+		DataChangeCreatedBy: dataChangeCreatedBy,
 	}
 
 	var createRes createApollItemResponse
+
+	fmt.Printf("apiPath createReq: %+v\n", createReq)
+	fmt.Printf("apiPath createRes: %+v\n", createRes)
+	fmt.Printf("apiPath apiPath: %+v\n", apiPath)
+	fmt.Printf("apiPath http.MethodPost: %+v\n", http.MethodPost)
 
 	_, err := c.do(ctx, http.MethodPost, apiPath, createReq, &createRes)
 
@@ -73,8 +87,8 @@ func (c *Client) CreateApolloItem(ctx context.Context, orgName, name, descriptio
 
 	return &ApollItem{
 		ID:          createRes.ID,
-		Name:        createReq.Name,
-		Description: createReq.Description,
+		Name:        createReq.Key,
+		Description: createReq.Comment,
 		TokenValue:  createRes.TokenValue,
 	}, nil
 
@@ -96,8 +110,12 @@ func (c *Client) UpdateApolloItem(ctx context.Context, apolloItemId, orgName, na
 	apiPath := path.Join("orgs", orgName, "apollo-items", apolloItemId)
 
 	updateReq := createUpdateApollItemRequest{
-		Name:        name,
-		Description: description,
+		// Name:        name,
+		// Description: description,
+		// key:                       key,
+		// value:                     value,
+		// comment:                   comment,
+		// dataChangeCreatedBy:       dataChangeCreatedBy,
 	}
 
 	_, err := c.do(ctx, http.MethodPatch, apiPath, updateReq, nil)
