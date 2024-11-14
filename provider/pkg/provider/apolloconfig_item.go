@@ -321,7 +321,19 @@ func (aci *ApolloConfigItemResource) Configure(_ PulumiServiceConfig) {
 }
 
 func (aci *ApolloConfigItemResource) createApolloItem(ctx context.Context, input ApolloConfigItemInput) (*apolloconfigapi.ApollItem, error) {
-	apolloItem, err := aci.client.CreateApolloItem(ctx, input.appId, input.namespace, input.env, input.clusterName, input.key, input.value, input.comment, input.dataChangeCreatedBy, input.dataChangeLastModifiedBy)
+    params := &apolloconfigapi.CreateUpdateApollItemRequest{
+        AppID:                    input.appId,
+        Namespace:                input.namespace,
+        Env:                      input.env,
+        ClusterName:              input.clusterName,
+        Key:                      input.key,
+        Value:                    input.value,
+        Comment:                  input.comment,
+        DataChangeCreatedBy:      input.dataChangeCreatedBy,
+        DataChangeLastModifiedBy: input.dataChangeLastModifiedBy,
+    }
+
+	apolloItem, err := aci.client.CreateApolloItem(ctx, params)
 	if err != nil {
 		return nil, err
 	}
