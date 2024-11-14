@@ -29,12 +29,43 @@ type Client struct {
 	baseurl    *url.URL
 }
 
+func (c *Client) printAsCurl(req *http.Request) {
+    curl := fmt.Sprintf("curl -X %s '%s'", req.Method, req.URL.String())
+
+    // 添加请求头
+    for key, values := range req.Header {
+        for _, value := range values {
+            curl += fmt.Sprintf(" -H '%s: %s'", key, value)
+        }
+    }
+
+    // 添加请求体
+    if req.Body != nil {
+        // 因为 Body 是一个 io.ReadCloser，我们需要复制它的内容
+        bodyBytes, err := io.ReadAll(req.Body)
+        if err == nil {
+            // 重新设置请求体，因为它已经被读取了
+            req.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+            // 如果是 JSON 数据，美化输出
+            var prettyJSON bytes.Buffer
+            err = json.Indent(&prettyJSON, bodyBytes, "", "  ")
+            if err == nil {
+                curl += fmt.Sprintf(" -d '%s'", prettyJSON.String())
+            } else {
+                curl += fmt.Sprintf(" -d '%s'", string(bodyBytes))
+            }
+        }
+    }
+
+    fmt.Printf("\nCurl command:\n%s\n\n", curl)
+}
+
 func NewClient(client *http.Client, token, URL string) (*Client, error) {
 
 	var baseURL = &url.URL{
 		Scheme: "https",
 		Host:   "api.pulumi.com",
-		Path:   "/api/",
+		Path:   "/openapi/",
 	}
 	if len(URL) > 0 {
 		parsedURL, err := url.Parse(URL)
@@ -42,7 +73,7 @@ func NewClient(client *http.Client, token, URL string) (*Client, error) {
 			return nil, fmt.Errorf("failed to parse URL (%q): %w", URL, err)
 		}
 		baseURL = parsedURL
-		baseURL.Path = "/api/"
+		baseURL.Path = "/openapi/"
 	}
 
 	return &Client{
@@ -81,6 +112,8 @@ func (c *Client) createRequest(ctx context.Context, method string, url *url.URL,
 // sendRequest executes req and unmarshals response json into resBody
 // returns attempts to unmarshal response into ErrorResponse if statusCode not 2XX
 func (c *Client) sendRequest(req *http.Request, resBody interface{}) (*http.Response, error) {
+	c.printAsCurl(req)
+
 	res, err := c.httpClient.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
