@@ -1,7 +1,27 @@
-name: simple
+name: provider-apolloconfig
 runtime: yaml
 description: A minimal Pulumi YAML program
 config: {'pulumi:tags': {value: {'pulumi:template': yaml}}}
-outputs: {}
-resources: {}
+plugins:
+  providers:
+    - name: apolloconfig
+      path: ../../bin
+
+pluginSearchPaths:
+  - ./../bin
+  - ./bin
+
 variables: {}
+
+resources:
+  myApolloItemResource:
+    type: apolloconfig:index:ApolloItem
+    properties:
+      name: test
+      description: test
+      organizationName: test
+      forceDestroy: false
+
+# outputs:
+#   output:
+#     value: ${myApolloItemResource.result}
