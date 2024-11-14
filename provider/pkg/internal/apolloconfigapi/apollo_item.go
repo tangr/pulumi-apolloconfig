@@ -23,7 +23,7 @@ import (
 )
 
 type ApolloItemClient interface {
-	CreateApolloItem(ctx context.Context, appId, namespace, env, clusterName, key, value, comment, dataChangeCreatedBy, dataChangeLastModifiedBy string) (*ApollItem, error)
+	CreateApolloItem(ctx context.Context, params *CreateUpdateApollItemRequest) (*ApollItem, error)
 	UpdateApolloItem(ctx context.Context, apolloItemId, orgName, name, description string) error
 	DeleteApolloItem(ctx context.Context, apolloItemId, orgName string, forceDestroy bool) error
 	GetApolloItem(ctx context.Context, apolloItemId, orgName string) (*ApollItem, error)
@@ -41,35 +41,46 @@ type createApollItemResponse struct {
 	TokenValue string `json:"tokenValue"`
 }
 
-type createUpdateApollItemRequest struct {
+type CreateUpdateApollItemRequest struct {
+    AppID                     string `json:"appId"`
+    Namespace                 string `json:"namespace"`
+    Env                       string `json:"env"`
+    ClusterName               string `json:"clusterName"`
+    DataChangeLastModifiedBy  string `json:"dataChangeLastModifiedBy"`
 	Key                       string `json:"key"`
 	Value                     string `json:"value"`
 	Comment                   string `json:"comment"`
 	DataChangeCreatedBy       string `json:"dataChangeCreatedBy"`
 }
 
-func (c *Client) CreateApolloItem(ctx context.Context, appId, namespace, env, clusterName, key, value, comment, dataChangeCreatedBy, dataChangeLastModifiedBy string) (*ApollItem, error) {
+func (p *CreateUpdateApollItemRequest) Validate() error {
+    if p.AppID == "" {
+        return errors.New("empty appId")
+    }
+    if p.Namespace == "" {
+        return errors.New("empty namespace")
+    }
+    if p.Env == "" {
+        return errors.New("empty env")
+    }
+    if p.ClusterName == "" {
+        return errors.New("empty clusterName")
+    }
+    return nil
+}
 
-	if len(appId) == 0 {
-		return nil, errors.New("empty appId")
-	}
-	if len(namespace) == 0 {
-		return nil, errors.New("empty namespace")
-	}
-	if len(env) == 0 {
-		return nil, errors.New("empty env")
-	}
-	if len(clusterName) == 0 {
-		return nil, errors.New("empty clusterName")
-	}
+func (c *Client) CreateApolloItem(ctx context.Context, params *CreateUpdateApollItemRequest) (*ApollItem, error) {
+	if err := params.Validate(); err != nil {
+        return nil, err
+    }
 
-	apiPath := path.Join("v1", "envs", env, "apps", appId, "clusters", clusterName, "namespaces", namespace, "items")
+	apiPath := path.Join("v1", "envs", params.Env, "apps", params.AppID, "clusters", params.ClusterName, "namespaces", params.Namespace, "items")
 
-	createReq := createUpdateApollItemRequest{
-		Key:                 key,
-		Value:               value,
-		Comment:             comment,
-		DataChangeCreatedBy: dataChangeCreatedBy,
+	createReq := CreateUpdateApollItemRequest{
+		Key:                 params.Key,
+		Value:               params.Value,
+		Comment:             params.Comment,
+		DataChangeCreatedBy: params.DataChangeCreatedBy,
 	}
 
 	var createRes createApollItemResponse
@@ -109,9 +120,7 @@ func (c *Client) UpdateApolloItem(ctx context.Context, apolloItemId, orgName, na
 
 	apiPath := path.Join("orgs", orgName, "apollo-items", apolloItemId)
 
-	updateReq := createUpdateApollItemRequest{
-		// Name:        name,
-		// Description: description,
+	updateReq := CreateUpdateApollItemRequest{
 		// key:                       key,
 		// value:                     value,
 		// comment:                   comment,
