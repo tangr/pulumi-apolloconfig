@@ -1,7 +1,6 @@
 name: provider-apolloconfig
 runtime: yaml
 description: A minimal Pulumi YAML program
-config: {'pulumi:tags': {value: {'pulumi:template': yaml}}}
 plugins:
   providers:
     - name: apolloconfig
@@ -10,6 +9,14 @@ plugins:
 pluginSearchPaths:
   - ./../bin
   - ./bin
+
+# config: {'pulumi:tags': {value: {'pulumi:template': yaml}}}
+
+config:
+  # apolloconfig:apiUrl: https://api.pulumi.com
+  # apolloconfig:apiUrl: https://httpbin.org/status/404
+  apolloconfig:apiUrl: https://apollo-test.itfs.dev
+  apolloconfig:accessToken: "7cb2cc35f74533d66f6914af9dc32a79c3bd613a"
 
 variables: {}
 
@@ -21,6 +28,15 @@ resources:
       description: test
       organizationName: test
       forceDestroy: false
+      appId: "superadmin"
+      namespace: "application"
+      env: "PRO"
+      clusterName: "open-api-test3"
+      key: "content"
+      value: "{b:c}"
+      comment: "managed by pulumi"
+      dataChangeCreatedBy: "apollo"
+      dataChangeLastModifiedBy: "apollo"
 
 # outputs:
 #   output:
