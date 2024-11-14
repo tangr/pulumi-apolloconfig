@@ -74,57 +74,35 @@ func GenerateApolloItemProperties(input ApolloConfigItemInput, apolloItem apollo
 func (aci *ApolloConfigItemResource) ToApolloConfigItemInput(inputMap resource.PropertyMap) ApolloConfigItemInput {
 	input := ApolloConfigItemInput{}
 
-	if inputMap["name"].HasValue() && inputMap["name"].IsString() {
-		input.Name = inputMap["name"].StringValue()
+	getStringValue := func(key string) string {
+		if v, ok := inputMap[resource.PropertyKey(key)]; ok && v.HasValue() && v.IsString() {
+			return v.StringValue()
+		}
+		return ""
 	}
 
-	if inputMap["description"].HasValue() && inputMap["description"].IsString() {
-		input.Description = inputMap["description"].StringValue()
+	getBoolValue := func(key string) bool {
+		if v, ok := inputMap[resource.PropertyKey(key)]; ok && v.HasValue() && v.IsBool() {
+			return v.BoolValue()
+		}
+		return false
 	}
 
-	if inputMap["organizationName"].HasValue() && inputMap["organizationName"].IsString() {
-		input.OrgName = inputMap["organizationName"].StringValue()
-	}
+	input.Name = getStringValue("name")
+	input.Description = getStringValue("description")
+	input.OrgName = getStringValue("organizationName")
+	input.ForceDestroy = getBoolValue("forceDestroy")
 
-	if inputMap["forceDestroy"].HasValue() && inputMap["forceDestroy"].IsBool() {
-		input.ForceDestroy = inputMap["forceDestroy"].BoolValue()
-	}
+	input.AppId = getStringValue("appId")
+	input.Namespace = getStringValue("namespace")
+	input.Env = getStringValue("env")
+	input.ClusterName = getStringValue("clusterName")
+	input.Key = getStringValue("key")
+	input.Value = getStringValue("value")
+	input.Comment = getStringValue("comment")
 
-	if inputMap["appId"].HasValue() && inputMap["appId"].IsString() {
-		input.AppId = inputMap["appId"].StringValue()
-	}
-
-	if inputMap["namespace"].HasValue() && inputMap["namespace"].IsString() {
-		input.Namespace = inputMap["namespace"].StringValue()
-	}
-
-	if inputMap["env"].HasValue() && inputMap["env"].IsString() {
-		input.Env = inputMap["env"].StringValue()
-	}
-
-	if inputMap["clusterName"].HasValue() && inputMap["clusterName"].IsString() {
-		input.ClusterName = inputMap["clusterName"].StringValue()
-	}
-
-	if inputMap["key"].HasValue() && inputMap["key"].IsString() {
-		input.Key = inputMap["key"].StringValue()
-	}
-
-	if inputMap["value"].HasValue() && inputMap["value"].IsString() {
-		input.Value = inputMap["value"].StringValue()
-	}
-
-	if inputMap["comment"].HasValue() && inputMap["comment"].IsString() {
-		input.Comment = inputMap["comment"].StringValue()
-	}
-
-	if inputMap["dataChangeCreatedBy"].HasValue() && inputMap["dataChangeCreatedBy"].IsString() {
-		input.DataChangeCreatedBy = inputMap["dataChangeCreatedBy"].StringValue()
-	}
-
-	if inputMap["dataChangeLastModifiedBy"].HasValue() && inputMap["dataChangeLastModifiedBy"].IsString() {
-		input.DataChangeLastModifiedBy = inputMap["dataChangeLastModifiedBy"].StringValue()
-	}
+	input.DataChangeCreatedBy = getStringValue("dataChangeCreatedBy")
+	input.DataChangeLastModifiedBy = getStringValue("dataChangeLastModifiedBy")
 
 	return input
 }
