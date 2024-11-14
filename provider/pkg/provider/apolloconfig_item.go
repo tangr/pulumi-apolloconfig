@@ -23,6 +23,16 @@ type ApolloConfigItemInput struct {
 	Description  string
 	Name         string
 	ForceDestroy bool
+
+	appId                      string
+	namespace                  string
+	env                        string
+	clusterName                string
+	key                        string
+	value                      string
+	comment                    string
+	dataChangeCreatedBy        string
+	dataChangeLastModifiedBy   string
 }
 
 func GenerateApolloItemProperties(input ApolloConfigItemInput, apolloItem apolloconfigapi.ApollItem) (outputs *structpb.Struct, inputs *structpb.Struct, err error) {
@@ -78,6 +88,42 @@ func (aci *ApolloConfigItemResource) ToApolloConfigItemInput(inputMap resource.P
 
 	if inputMap["forceDestroy"].HasValue() && inputMap["forceDestroy"].IsBool() {
 		input.ForceDestroy = inputMap["forceDestroy"].BoolValue()
+	}
+
+	if inputMap["appId"].HasValue() && inputMap["appId"].IsString() {
+		input.appId = inputMap["appId"].StringValue()
+	}
+
+	if inputMap["namespace"].HasValue() && inputMap["namespace"].IsString() {
+		input.namespace = inputMap["namespace"].StringValue()
+	}
+
+	if inputMap["env"].HasValue() && inputMap["env"].IsString() {
+		input.env = inputMap["env"].StringValue()
+	}
+
+	if inputMap["clusterName"].HasValue() && inputMap["clusterName"].IsString() {
+		input.clusterName = inputMap["clusterName"].StringValue()
+	}
+
+	if inputMap["key"].HasValue() && inputMap["key"].IsString() {
+		input.key = inputMap["key"].StringValue()
+	}
+
+	if inputMap["value"].HasValue() && inputMap["value"].IsString() {
+		input.value = inputMap["value"].StringValue()
+	}
+
+	if inputMap["comment"].HasValue() && inputMap["comment"].IsString() {
+		input.comment = inputMap["comment"].StringValue()
+	}
+
+	if inputMap["dataChangeCreatedBy"].HasValue() && inputMap["dataChangeCreatedBy"].IsString() {
+		input.dataChangeCreatedBy = inputMap["dataChangeCreatedBy"].StringValue()
+	}
+
+	if inputMap["dataChangeLastModifiedBy"].HasValue() && inputMap["dataChangeLastModifiedBy"].IsString() {
+		input.dataChangeLastModifiedBy = inputMap["dataChangeLastModifiedBy"].StringValue()
 	}
 
 	return input
@@ -161,6 +207,8 @@ func (aci *ApolloConfigItemResource) Create(req *pulumirpc.CreateRequest) (*pulu
 	}
 
 	input := aci.ToApolloConfigItemInput(inputMap)
+	fmt.Printf("ToApolloConfigItemInput inputMap: %+v\n", inputMap)
+	fmt.Printf("ToApolloConfigItemInput input: %+v\n", input)
 	apolloItem, err := aci.createApolloItem(ctx, input)
 	if err != nil {
 		return nil, fmt.Errorf("error creating apollo item '%s': %s", input.Name, err.Error())
@@ -276,7 +324,7 @@ func (aci *ApolloConfigItemResource) Configure(_ PulumiServiceConfig) {
 }
 
 func (aci *ApolloConfigItemResource) createApolloItem(ctx context.Context, input ApolloConfigItemInput) (*apolloconfigapi.ApollItem, error) {
-	apolloItem, err := aci.client.CreateApolloItem(ctx, input.OrgName, input.Name, input.Description)
+	apolloItem, err := aci.client.CreateApolloItem(ctx, input.appId, input.namespace, input.env, input.clusterName, input.key, input.value, input.comment, input.dataChangeCreatedBy, input.dataChangeLastModifiedBy)
 	if err != nil {
 		return nil, err
 	}
