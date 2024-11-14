@@ -15,6 +15,7 @@ SCHEMA_FILE     := provider/cmd/pulumi-resource-apolloconfig/schema.json
 GOPATH			:= $(shell go env GOPATH)
 
 WORKING_DIR     := $(shell pwd)
+EXAMPLES_DIR    := ${WORKING_DIR}/examples/simple
 TESTPARALLELISM := 4
 
 # The pulumi binary to use during generation
@@ -156,3 +157,23 @@ $(PULUMI): provider/go.mod
 	if ! [ -x $(PULUMI) ]; then \
 		curl -fsSL https://get.pulumi.com | sh -s -- --version "$${PULUMI_VERSION#v}"; \
 	fi
+
+define pulumi_login
+    export PULUMI_CONFIG_PASSPHRASE=123; \
+    pulumi login --local;
+endef
+
+up::
+	$(call pulumi_login) \
+	cd ${EXAMPLES_DIR} && \
+	pulumi stack init dev && \
+	pulumi stack select dev && \
+	pulumi config set name dev && \
+	pulumi up -y
+
+down::
+	$(call pulumi_login) \
+	cd ${EXAMPLES_DIR} && \
+	pulumi stack select dev && \
+	pulumi destroy -y && \
+	pulumi stack rm dev -y
