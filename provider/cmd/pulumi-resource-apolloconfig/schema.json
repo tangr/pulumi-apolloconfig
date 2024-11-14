@@ -677,6 +677,42 @@
         "forceDestroy": {
           "description": "Optional. Flag indicating whether to delete the agent pool even if stacks are configured to use it.",
           "type": "boolean"
+        },
+        "appId": {
+          "description": "The appId.",
+          "type": "string"
+        },
+        "namespace": {
+          "description": "The namespace.",
+          "type": "string"
+        },
+        "env": {
+          "description": "The env.",
+          "type": "string"
+        },
+        "clusterName": {
+          "description": "The clusterName.",
+          "type": "string"
+        },
+        "key": {
+          "description": "The key.",
+          "type": "string"
+        },
+        "value": {
+          "description": "The value.",
+          "type": "string"
+        },
+        "comment": {
+          "description": "The comment.",
+          "type": "string"
+        },
+        "dataChangeCreatedBy": {
+          "description": "The dataChangeCreatedBy.",
+          "type": "string"
+        },
+        "dataChangeLastModifiedBy": {
+          "description": "The dataChangeLastModifiedBy.",
+          "type": "string"
         }
       },
       "required": [
@@ -701,6 +737,42 @@
         "forceDestroy": {
           "description": "Optional. Flag indicating whether to delete the agent pool even if stacks are configured to use it.",
           "type": "boolean"
+        },
+        "appId": {
+          "description": "The appId.",
+          "type": "string"
+        },
+        "namespace": {
+          "description": "The namespace.",
+          "type": "string"
+        },
+        "env": {
+          "description": "The env.",
+          "type": "string"
+        },
+        "clusterName": {
+          "description": "The clusterName.",
+          "type": "string"
+        },
+        "key": {
+          "description": "The key.",
+          "type": "string"
+        },
+        "value": {
+          "description": "The value.",
+          "type": "string"
+        },
+        "comment": {
+          "description": "The comment.",
+          "type": "string"
+        },
+        "dataChangeCreatedBy": {
+          "description": "The dataChangeCreatedBy.",
+          "type": "string"
+        },
+        "dataChangeLastModifiedBy": {
+          "description": "The dataChangeLastModifiedBy.",
+          "type": "string"
         }
       },
       "requiredInputs": [
