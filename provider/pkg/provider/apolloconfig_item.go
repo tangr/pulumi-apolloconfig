@@ -24,16 +24,16 @@ type ApolloConfigItemInput struct {
 	Name         string
 	ForceDestroy bool
 
-	AppId                      string `json:"appId"`
-	Namespace                  string `json:"namespace"`
-	Env                        string `json:"env"`
-	ClusterName                string `json:"clusterName"`
-	Key                        string `json:"key"`
-	Value                      string `json:"value"`
-	Comment                    string `json:"comment"`
-	Operator                    string `json:"operator"`
-	DataChangeCreatedBy        string `json:"dataChangeCreatedBy"`
-	DataChangeLastModifiedBy   string `json:"dataChangeLastModifiedBy"`
+	AppId                    string `json:"appId"`
+	Namespace                string `json:"namespace"`
+	Env                      string `json:"env"`
+	ClusterName              string `json:"clusterName"`
+	Key                      string `json:"key"`
+	Value                    string `json:"value"`
+	Comment                  string `json:"comment"`
+	Operator                 string `json:"operator"`
+	DataChangeCreatedBy      string `json:"dataChangeCreatedBy"`
+	DataChangeLastModifiedBy string `json:"dataChangeLastModifiedBy"`
 }
 
 func GenerateApolloItemProperties(input ApolloConfigItemInput, apolloItem apolloconfigapi.ApollItem) (outputs *structpb.Struct, inputs *structpb.Struct, err error) {
@@ -54,7 +54,6 @@ func GenerateApolloItemProperties(input ApolloConfigItemInput, apolloItem apollo
 	inputMap["key"] = resource.NewPropertyValue(input.Key)
 	inputMap["value"] = resource.NewPropertyValue(input.Value)
 	inputMap["dataChangeCreatedBy"] = resource.NewPropertyValue(input.DataChangeCreatedBy)
-
 
 	outputMap := resource.PropertyMap{}
 	outputMap["apolloItemId"] = resource.NewPropertyValue(apolloItem.ID)
@@ -234,8 +233,8 @@ func (aci *ApolloConfigItemResource) Create(req *pulumirpc.CreateRequest) (*pulu
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("ApolloConfigItemResource Create input: %+v\n", input )
-	fmt.Printf("outputProperties: %+v\n", outputProperties )
+	fmt.Printf("ApolloConfigItemResource Create input: %+v\n", input)
+	fmt.Printf("outputProperties: %+v\n", outputProperties)
 
 	return &pulumirpc.CreateResponse{
 		Id:         fmt.Sprintf("%s/%s/%s/%s/%s", input.Env, input.AppId, input.ClusterName, input.Namespace, input.Key),
@@ -252,7 +251,8 @@ func (aci *ApolloConfigItemResource) Update(req *pulumirpc.UpdateRequest) (*pulu
 	ctx := context.Background()
 
 	// ignore orgName because if that changed, we would have done a replace, so update would never have been called
-	_, _, _, _, apolloItemId, err := splitApolloItemId(req.GetId())
+	// _, _, _, _, apolloItemId, err := splitApolloItemId(req.GetId())
+	env, appId, clusterName, namespace, key, err := splitApolloItemId(id)
 	if err != nil {
 		return nil, fmt.Errorf("invalid resource id: %v", err)
 	}
@@ -295,7 +295,7 @@ func (aci *ApolloConfigItemResource) Read(req *pulumirpc.ReadRequest) (*pulumirp
 	ctx := context.Background()
 	urn := req.GetId()
 
-	orgName, _,_,_, apolloItemId, err := splitApolloItemId(urn)
+	orgName, _, _, _, apolloItemId, err := splitApolloItemId(urn)
 	if err != nil {
 		return nil, err
 	}
@@ -342,18 +342,18 @@ func (aci *ApolloConfigItemResource) Configure(_ PulumiServiceConfig) {
 }
 
 func (aci *ApolloConfigItemResource) createApolloItem(ctx context.Context, input ApolloConfigItemInput) (*apolloconfigapi.ApollItem, error) {
-    params := &apolloconfigapi.CreateUpdateApollItemRequest{
-        AppID:                    input.AppId,
-        Namespace:                input.Namespace,
-        Env:                      input.Env,
-        ClusterName:              input.ClusterName,
-        Key:                      input.Key,
-        Value:                    input.Value,
-        Comment:                  input.Comment,
-        Operator:                 input.Operator,
-        DataChangeCreatedBy:      input.DataChangeCreatedBy,
-        DataChangeLastModifiedBy: input.DataChangeLastModifiedBy,
-    }
+	params := &apolloconfigapi.CreateUpdateApollItemRequest{
+		AppID:                    input.AppId,
+		Namespace:                input.Namespace,
+		Env:                      input.Env,
+		ClusterName:              input.ClusterName,
+		Key:                      input.Key,
+		Value:                    input.Value,
+		Comment:                  input.Comment,
+		Operator:                 input.Operator,
+		DataChangeCreatedBy:      input.DataChangeCreatedBy,
+		DataChangeLastModifiedBy: input.DataChangeLastModifiedBy,
+	}
 
 	apolloItem, err := aci.client.CreateApolloItem(ctx, params)
 	if err != nil {
