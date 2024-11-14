@@ -28,12 +28,14 @@ resources:
       description: test
       organizationName: test
       forceDestroy: false
+
       appId: "superadmin"
       namespace: "application"
       env: "PRO"
       clusterName: "open-api-test3"
       key: "content"
       value: "{b:c}"
+      operator: apollo
       comment: "managed by pulumi"
       dataChangeCreatedBy: "apollo"
       dataChangeLastModifiedBy: "apollo"
