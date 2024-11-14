@@ -31,6 +31,7 @@ type ApolloConfigItemInput struct {
 	Key                        string `json:"key"`
 	Value                      string `json:"value"`
 	Comment                    string `json:"comment"`
+	Operator                    string `json:"operator"`
 	DataChangeCreatedBy        string `json:"dataChangeCreatedBy"`
 	DataChangeLastModifiedBy   string `json:"dataChangeLastModifiedBy"`
 }
@@ -46,11 +47,35 @@ func GenerateApolloItemProperties(input ApolloConfigItemInput, apolloItem apollo
 		inputMap["forceDestroy"] = resource.NewPropertyValue(input.ForceDestroy)
 	}
 
+	inputMap["env"] = resource.NewPropertyValue(input.Env)
+	inputMap["appId"] = resource.NewPropertyValue(input.AppId)
+	inputMap["clusterName"] = resource.NewPropertyValue(input.ClusterName)
+	inputMap["namespace"] = resource.NewPropertyValue(input.Namespace)
+	inputMap["key"] = resource.NewPropertyValue(input.Key)
+	inputMap["value"] = resource.NewPropertyValue(input.Value)
+	inputMap["dataChangeCreatedBy"] = resource.NewPropertyValue(input.DataChangeCreatedBy)
+
+
 	outputMap := resource.PropertyMap{}
 	outputMap["apolloItemId"] = resource.NewPropertyValue(apolloItem.ID)
 	outputMap["name"] = inputMap["name"]
 	outputMap["organizationName"] = inputMap["organizationName"]
 	outputMap["tokenValue"] = resource.NewPropertyValue(apolloItem.TokenValue)
+
+	outputMap["env"] = resource.NewPropertyValue(input.Env)
+	outputMap["appId"] = resource.NewPropertyValue(input.AppId)
+	outputMap["clusterName"] = resource.NewPropertyValue(input.ClusterName)
+	outputMap["namespace"] = resource.NewPropertyValue(input.Namespace)
+	outputMap["key"] = resource.NewPropertyValue(input.Key)
+	outputMap["value"] = resource.NewPropertyValue(input.Value)
+	outputMap["comment"] = resource.NewPropertyValue(input.Comment)
+	outputMap["operator"] = resource.NewPropertyValue(input.Operator)
+	outputMap["dataChangeCreatedBy"] = resource.NewPropertyValue(input.DataChangeCreatedBy)
+
+	outputMap["dataChangeLastModifiedBy"] = resource.NewPropertyValue(apolloItem.DataChangeLastModifiedBy)
+	outputMap["dataChangeCreatedTime"] = resource.NewPropertyValue(apolloItem.DataChangeCreatedTime)
+	outputMap["dataChangeLastModifiedTime"] = resource.NewPropertyValue(apolloItem.DataChangeLastModifiedTime)
+
 	if input.Description != "" {
 		outputMap["description"] = inputMap["description"]
 	}
@@ -67,6 +92,9 @@ func GenerateApolloItemProperties(input ApolloConfigItemInput, apolloItem apollo
 	if err != nil {
 		return nil, nil, err
 	}
+
+	fmt.Printf("GenerateApolloItemProperties outputMap: %+v\n", outputMap)
+	fmt.Printf("GenerateApolloItemProperties outputs: %+v\n", outputs)
 
 	return outputs, inputs, err
 }
@@ -100,6 +128,7 @@ func (aci *ApolloConfigItemResource) ToApolloConfigItemInput(inputMap resource.P
 	input.Key = getStringValue("key")
 	input.Value = getStringValue("value")
 	input.Comment = getStringValue("comment")
+	input.Operator = getStringValue("operator")
 
 	input.DataChangeCreatedBy = getStringValue("dataChangeCreatedBy")
 	input.DataChangeLastModifiedBy = getStringValue("dataChangeLastModifiedBy")
@@ -157,15 +186,27 @@ func (aci *ApolloConfigItemResource) Diff(req *pulumirpc.DiffRequest) (*pulumirp
 }
 
 func (aci *ApolloConfigItemResource) Delete(req *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
+	fmt.Printf("Properties: %+v\n", req.GetProperties())
+
 	ctx := context.Background()
 	inputs, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{KeepUnknowns: true, SkipNulls: true})
 	if err != nil {
 		return nil, err
 	}
 
-	pool := aci.ToApolloConfigItemInput(inputs)
+	fmt.Printf("ApolloConfigItemResource Delete inputs: %s\n", inputs)
+	fmt.Printf("ApolloConfigItemResource Delete inputs2: %+v\n", inputs)
+	// pool := aci.ToApolloConfigItemInput(inputs)
+	item := aci.ToApolloConfigItemInput(inputs)
+	fmt.Printf("ApolloConfigItemResource Delete item: %+v\n", item)
 
-	err = aci.deleteApolloItem(ctx, req.Id, pool.ForceDestroy)
+	operator := item.Operator
+	if operator == "" {
+		operator = item.DataChangeCreatedBy
+	}
+
+	// err = aci.deleteApolloItem(ctx, req.Id, pool.ForceDestroy)
+	err = aci.deleteApolloItem(ctx, req.Id, operator)
 
 	if err != nil {
 		return &pbempty.Empty{}, err
@@ -193,6 +234,8 @@ func (aci *ApolloConfigItemResource) Create(req *pulumirpc.CreateRequest) (*pulu
 	if err != nil {
 		return nil, err
 	}
+	fmt.Printf("ApolloConfigItemResource Create input: %+v\n", input )
+	fmt.Printf("outputProperties: %+v\n", outputProperties )
 
 	return &pulumirpc.CreateResponse{
 		Id:         fmt.Sprintf("%s/%s/%s/%s/%s", input.Env, input.AppId, input.ClusterName, input.Namespace, input.Key),
@@ -209,7 +252,7 @@ func (aci *ApolloConfigItemResource) Update(req *pulumirpc.UpdateRequest) (*pulu
 	ctx := context.Background()
 
 	// ignore orgName because if that changed, we would have done a replace, so update would never have been called
-	_, _, apolloItemId, err := splitApolloItemId(req.GetId())
+	_, _, _, _, apolloItemId, err := splitApolloItemId(req.GetId())
 	if err != nil {
 		return nil, fmt.Errorf("invalid resource id: %v", err)
 	}
@@ -252,7 +295,7 @@ func (aci *ApolloConfigItemResource) Read(req *pulumirpc.ReadRequest) (*pulumirp
 	ctx := context.Background()
 	urn := req.GetId()
 
-	orgName, _, apolloItemId, err := splitApolloItemId(urn)
+	orgName, _,_,_, apolloItemId, err := splitApolloItemId(urn)
 	if err != nil {
 		return nil, err
 	}
@@ -307,6 +350,7 @@ func (aci *ApolloConfigItemResource) createApolloItem(ctx context.Context, input
         Key:                      input.Key,
         Value:                    input.Value,
         Comment:                  input.Comment,
+        Operator:                 input.Operator,
         DataChangeCreatedBy:      input.DataChangeCreatedBy,
         DataChangeLastModifiedBy: input.DataChangeLastModifiedBy,
     }
@@ -323,21 +367,44 @@ func (aci *ApolloConfigItemResource) updateApolloItem(ctx context.Context, apoll
 	return aci.client.UpdateApolloItem(ctx, apolloItemId, input.OrgName, input.Name, input.Description)
 }
 
-func (aci *ApolloConfigItemResource) deleteApolloItem(ctx context.Context, id string, forceDestroy bool) error {
+func (aci *ApolloConfigItemResource) deleteApolloItem(ctx context.Context, id string, operator string) error {
 	// we don't need the token name when we delete
-	orgName, _, apolloItemId, err := splitApolloItemId(id)
+	env, appId, clusterName, namespace, key, err := splitApolloItemId(id)
+	// orgName, _, apolloItemId, err := splitApolloItemId(id)
 	if err != nil {
 		return err
 	}
-	return aci.client.DeleteApolloItem(ctx, apolloItemId, orgName, forceDestroy)
+	// return aci.client.DeleteApolloItem(ctx, env, appId, clusterName, namespace, key)
+	return aci.client.DeleteApolloItem(ctx, env, appId, clusterName, namespace, key, operator)
 
 }
 
-func splitApolloItemId(id string) (string, string, string, error) {
+// func (aci *ApolloConfigItemResource) deleteApolloItem(ctx context.Context, id string, forceDestroy bool) error {
+// 	// we don't need the token name when we delete
+// 	// env, appId, clusterName, namespace, key, err := splitApolloItemId(id)
+// 	orgName, _, apolloItemId, err := splitApolloItemId(id)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	// return aci.client.DeleteApolloItem(ctx, env, appId, clusterName, namespace, key)
+// 	return aci.client.DeleteApolloItem(ctx, apolloItemId, orgName, forceDestroy)
+
+// }
+
+// func splitApolloItemId(id string) (string, string, string, error) {
+// 		// format: organization/name/apolloItemId
+// 		s := strings.Split(id, "/")
+// 		if len(s) != 3 {
+// 			return "", "", "", fmt.Errorf("%q is invalid, must be in the format: organization/name/apolloItemId", id)
+// 		}
+// 		return s[0], s[1], s[2], nil
+// 	}
+
+func splitApolloItemId(id string) (string, string, string, string, string, error) {
 	// format: organization/name/apolloItemId
 	s := strings.Split(id, "/")
-	if len(s) != 3 {
-		return "", "", "", fmt.Errorf("%q is invalid, must be in the format: organization/name/apolloItemId", id)
+	if len(s) != 5 {
+		return "", "", "", "", "", fmt.Errorf("%q is invalid, must be in the format: env/appId/clusterName/namespace/key", id)
 	}
-	return s[0], s[1], s[2], nil
+	return s[0], s[1], s[2], s[3], s[4], nil
 }
