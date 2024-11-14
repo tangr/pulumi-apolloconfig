@@ -252,10 +252,11 @@ func (aci *ApolloConfigItemResource) Update(req *pulumirpc.UpdateRequest) (*pulu
 
 	// ignore orgName because if that changed, we would have done a replace, so update would never have been called
 	// _, _, _, _, apolloItemId, err := splitApolloItemId(req.GetId())
-	env, appId, clusterName, namespace, key, err := splitApolloItemId(id)
-	if err != nil {
-		return nil, fmt.Errorf("invalid resource id: %v", err)
-	}
+	apolloItemId := req.GetId()
+	// env, appId, clusterName, namespace, key, err := splitApolloItemId(req.GetId())
+	// if err != nil {
+	// 	return nil, fmt.Errorf("invalid resource id: %v", err)
+	// }
 
 	olds, err := plugin.UnmarshalProperties(req.GetOldInputs(), plugin.MarshalOptions{KeepUnknowns: true, SkipNulls: true})
 	if err != nil {
