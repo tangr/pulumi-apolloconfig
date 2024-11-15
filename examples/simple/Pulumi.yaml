@@ -13,27 +13,20 @@ pluginSearchPaths:
 # config: {'pulumi:tags': {value: {'pulumi:template': yaml}}}
 
 config:
-  # apolloconfig:apiUrl: https://api.pulumi.com
-  # apolloconfig:apiUrl: https://httpbin.org/status/404
-  apolloconfig:apiUrl: https://apollo-test.itfs.dev
-  apolloconfig:authToken: "7cb2cc35f74533d66f6914af9dc32a79c3bd613a"
+  # apolloconfig:apiUrl: https://apollo-test.itfs.dev
+  # apolloconfig:authToken: "7cb2cc35f74533d66f6914af9dc32a79c3bd613a"
+  apolloconfig:apiUrl: http://81.68.181.139/
+  apolloconfig:authToken: 1c8552a50108bdb805d79b0b8684f135c33e04087616c5f10001fe7fb6090e29
 
 variables: {}
 
 resources:
-  myApolloProvider:
-    type: pulumi:providers:apolloconfig
-    properties:
-      apiUrl: https://apollo-test.itfs.dev
-      authToken: 7cb2cc35f74533d66f6914af9dc32a79c3bd613a
-    options:
-      protect: false
   myApolloItemResource:
     type: apolloconfig:index:ApolloItem
     properties:
-      appId: "superadmin"
+      appId: "test1115"
       namespace: "application"
-      env: "PRO"
+      env: "DEV"
       clusterName: "open-api-test3"
       key: "content"
       value: "{b:c}"
@@ -44,7 +37,6 @@ resources:
     options:
       protect: false
       deleteBeforeReplace: true
-      provider: ${myApolloProvider}
 
 outputs:
   output:
