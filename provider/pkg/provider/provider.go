@@ -129,21 +129,6 @@ func (k *apolloconfigProvider) Configure(_ context.Context, req *pulumirpc.Confi
 	}
 
 	k.pulumiResources = []ApolloconfigResource{
-		// &PulumiServiceTeamResource{
-		// 	client: client,
-		// },
-		// &PulumiServiceAccessTokenResource{
-		// 	client: client,
-		// },
-		// &PulumiServiceWebhookResource{
-		// 	client: client,
-		// },
-		// &PulumiServiceStackTagResource{
-		// 	client: client,
-		// },
-		// &PulumiServiceAgentPoolResource{
-		// 	client: client,
-		// },
 		&ApolloConfigItemResource{
 			client: apolloclient,
 		},
