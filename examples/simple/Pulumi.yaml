@@ -21,6 +21,13 @@ config:
 variables: {}
 
 resources:
+  myApolloProvider:
+    type: pulumi:providers:apolloconfig
+    properties:
+      apiUrl: https://apollo-test.itfs.dev
+      authToken: 7cb2cc35f74533d66f6914af9dc32a79c3bd613a
+    options:
+      protect: false
   myApolloItemResource:
     type: apolloconfig:index:ApolloItem
     properties:
@@ -34,7 +41,12 @@ resources:
       comment: "managed by pulumi"
       dataChangeCreatedBy: "apollo"
       dataChangeLastModifiedBy: "apollo"
+    options:
+      protect: false
+      deleteBeforeReplace: true
+      provider: ${myApolloProvider}
 
-# outputs:
-#   output:
-#     value: ${myApolloItemResource.result}
+outputs:
+  output:
+    value_id: ${myApolloItemResource.id}
+    value_urn: ${myApolloItemResource.urn}
