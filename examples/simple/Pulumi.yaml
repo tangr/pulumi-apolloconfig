@@ -24,18 +24,13 @@ resources:
   myApolloItemResource:
     type: apolloconfig:index:ApolloItem
     properties:
-      name: test
-      description: test
-      organizationName: test
-      forceDestroy: false
-
       appId: "superadmin"
       namespace: "application"
       env: "PRO"
       clusterName: "open-api-test3"
       key: "content"
       value: "{b:c}"
-      operator: apollo
+      # operator: apollo
       comment: "managed by pulumi"
       dataChangeCreatedBy: "apollo"
       dataChangeLastModifiedBy: "apollo"
