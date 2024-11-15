@@ -16,7 +16,7 @@ config:
   # apolloconfig:apiUrl: https://api.pulumi.com
   # apolloconfig:apiUrl: https://httpbin.org/status/404
   apolloconfig:apiUrl: https://apollo-test.itfs.dev
-  apolloconfig:accessToken: "7cb2cc35f74533d66f6914af9dc32a79c3bd613a"
+  apolloconfig:authToken: "7cb2cc35f74533d66f6914af9dc32a79c3bd613a"
 
 variables: {}
 
