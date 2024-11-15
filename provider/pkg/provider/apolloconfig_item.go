@@ -159,18 +159,13 @@ func (aci *ApolloConfigItemResource) Diff(req *pulumirpc.DiffRequest) (*pulumirp
 }
 
 func (aci *ApolloConfigItemResource) Delete(req *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
-	fmt.Printf("Properties: %+v\n", req.GetProperties())
-
 	ctx := context.Background()
 	inputs, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{KeepUnknowns: true, SkipNulls: true})
 	if err != nil {
 		return nil, err
 	}
 
-	fmt.Printf("ApolloConfigItemResource Delete inputs: %s\n", inputs)
-	fmt.Printf("ApolloConfigItemResource Delete inputs2: %+v\n", inputs)
 	item := aci.ToApolloConfigItemInput(inputs)
-	fmt.Printf("ApolloConfigItemResource Delete item: %+v\n", item)
 
 	operator := item.Operator
 	if operator == "" {
