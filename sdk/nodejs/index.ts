@@ -5,16 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
-export { AccessTokenArgs } from "./accessToken";
-export type AccessToken = import("./accessToken").AccessToken;
-export const AccessToken: typeof import("./accessToken").AccessToken = null as any;
-utilities.lazyLoad(exports, ["AccessToken"], () => require("./accessToken"));
-
-export { AgentPoolArgs } from "./agentPool";
-export type AgentPool = import("./agentPool").AgentPool;
-export const AgentPool: typeof import("./agentPool").AgentPool = null as any;
-utilities.lazyLoad(exports, ["AgentPool"], () => require("./agentPool"));
-
 export { ApolloItemArgs } from "./apolloItem";
 export type ApolloItem = import("./apolloItem").ApolloItem;
 export const ApolloItem: typeof import("./apolloItem").ApolloItem = null as any;
@@ -25,36 +15,13 @@ export type Provider = import("./provider").Provider;
 export const Provider: typeof import("./provider").Provider = null as any;
 utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
 
-export { StackArgs } from "./stack";
-export type Stack = import("./stack").Stack;
-export const Stack: typeof import("./stack").Stack = null as any;
-utilities.lazyLoad(exports, ["Stack"], () => require("./stack"));
-
-
-// Export enums:
-export * from "./types/enums";
-
-// Export sub-modules:
-import * as config from "./config";
-import * as types from "./types";
-
-export {
-    config,
-    types,
-};
 
 const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
-            case "apolloconfig:index:AccessToken":
-                return new AccessToken(name, <any>undefined, { urn })
-            case "apolloconfig:index:AgentPool":
-                return new AgentPool(name, <any>undefined, { urn })
             case "apolloconfig:index:ApolloItem":
                 return new ApolloItem(name, <any>undefined, { urn })
-            case "apolloconfig:index:Stack":
-                return new Stack(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

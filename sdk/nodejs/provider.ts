@@ -31,7 +31,8 @@ export class Provider extends pulumi.ProviderResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
-            resourceInputs["accessToken"] = args?.accessToken ? pulumi.secret(args.accessToken) : undefined;
+            resourceInputs["apiUrl"] = args ? args.apiUrl : undefined;
+            resourceInputs["authToken"] = args?.authToken ? pulumi.secret(args.authToken) : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Provider.__pulumiType, name, resourceInputs, opts);
@@ -43,7 +44,11 @@ export class Provider extends pulumi.ProviderResource {
  */
 export interface ProviderArgs {
     /**
-     * Access Token to authenticate with Pulumi Cloud.
+     * Apolloconfig apiUrl.
      */
-    accessToken?: pulumi.Input<string>;
+    apiUrl?: pulumi.Input<string>;
+    /**
+     * Apolloconfig authToken.
+     */
+    authToken?: pulumi.Input<string>;
 }

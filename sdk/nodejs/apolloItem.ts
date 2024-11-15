@@ -37,11 +37,11 @@ export class ApolloItem extends pulumi.CustomResource {
     /**
      * The appId.
      */
-    public readonly appId!: pulumi.Output<string | undefined>;
+    public readonly appId!: pulumi.Output<string>;
     /**
      * The clusterName.
      */
-    public readonly clusterName!: pulumi.Output<string | undefined>;
+    public readonly clusterName!: pulumi.Output<string>;
     /**
      * The comment.
      */
@@ -57,15 +57,15 @@ export class ApolloItem extends pulumi.CustomResource {
     /**
      * The env.
      */
-    public readonly env!: pulumi.Output<string | undefined>;
+    public readonly env!: pulumi.Output<string>;
     /**
      * The key.
      */
-    public readonly key!: pulumi.Output<string | undefined>;
+    public readonly key!: pulumi.Output<string>;
     /**
      * The namespace.
      */
-    public readonly namespace!: pulumi.Output<string | undefined>;
+    public readonly namespace!: pulumi.Output<string>;
     /**
      * The operator for delete item.
      */
@@ -82,10 +82,25 @@ export class ApolloItem extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: ApolloItemArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: ApolloItemArgs, opts?: pulumi.CustomResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if ((!args || args.appId === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'appId'");
+            }
+            if ((!args || args.clusterName === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'clusterName'");
+            }
+            if ((!args || args.env === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'env'");
+            }
+            if ((!args || args.key === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'key'");
+            }
+            if ((!args || args.namespace === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'namespace'");
+            }
             resourceInputs["appId"] = args ? args.appId : undefined;
             resourceInputs["clusterName"] = args ? args.clusterName : undefined;
             resourceInputs["comment"] = args ? args.comment : undefined;
@@ -120,11 +135,11 @@ export interface ApolloItemArgs {
     /**
      * The appId.
      */
-    appId?: pulumi.Input<string>;
+    appId: pulumi.Input<string>;
     /**
      * The clusterName.
      */
-    clusterName?: pulumi.Input<string>;
+    clusterName: pulumi.Input<string>;
     /**
      * The comment.
      */
@@ -140,15 +155,15 @@ export interface ApolloItemArgs {
     /**
      * The env.
      */
-    env?: pulumi.Input<string>;
+    env: pulumi.Input<string>;
     /**
      * The key.
      */
-    key?: pulumi.Input<string>;
+    key: pulumi.Input<string>;
     /**
      * The namespace.
      */
-    namespace?: pulumi.Input<string>;
+    namespace: pulumi.Input<string>;
     /**
      * The operator for delete item.
      */
