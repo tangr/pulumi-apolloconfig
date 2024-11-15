@@ -24,10 +24,10 @@ import (
 
 type ApolloItemClient interface {
 	CreateApolloItem(ctx context.Context, params *CreateUpdateApollItemRequest) (*ApollItem, error)
-	UpdateApolloItem(ctx context.Context, apolloItemId, orgName, name, description string) error
+	UpdateApolloItem(ctx context.Context, apolloItemId string, params *CreateUpdateApollItemRequest) error
 	DeleteApolloItem(ctx context.Context, env, appId, clusterName, namespace, key, operator string) error
 	// DeleteApolloItem(ctx context.Context, apolloItemId, orgName string, forceDestroy bool) error
-	GetApolloItem(ctx context.Context, apolloItemId, orgName string) (*ApollItem, error)
+	GetApolloItem(ctx context.Context, env, appId, clusterName, namespace, key string) (*ApollItem, error)
 }
 
 type ApollItem struct {
@@ -152,29 +152,27 @@ func (c *Client) CreateApolloItem(ctx context.Context, params *CreateUpdateApoll
 
 }
 
-func (c *Client) UpdateApolloItem(ctx context.Context, apolloItemId, orgName, name, description string) error {
+func (c *Client) UpdateApolloItem(ctx context.Context, apolloItemId string, params *CreateUpdateApollItemRequest) error {
+	if err := params.Validate(); err != nil {
+		return err
+	}
+
 	if len(apolloItemId) == 0 {
 		return errors.New("apolloItemId length must be greater than zero")
 	}
 
-	if len(orgName) == 0 {
-		return errors.New("empty orgName")
+	// apiPath := path.Join("orgs", orgName, "apollo-items", apolloItemId)
+	apiPath := path.Join("v1", "envs", params.Env, "apps", params.AppID, "clusters", params.ClusterName, "namespaces", params.Namespace, "items", params.Key)
+
+	updateReq := UpdateApollItemPostData{
+		Key:                       params.Key,
+		Value:                     params.Value,
+		Comment:                   params.Comment,
+		DataChangeCreatedBy:       params.DataChangeCreatedBy,
+		DataChangeLastModifiedBy:  params.DataChangeLastModifiedBy,
 	}
 
-	if len(name) == 0 {
-		return errors.New("empty name")
-	}
-
-	apiPath := path.Join("orgs", orgName, "apollo-items", apolloItemId)
-
-	updateReq := CreateUpdateApollItemRequest{
-		// key:                       key,
-		// value:                     value,
-		// comment:                   comment,
-		// dataChangeCreatedBy:       dataChangeCreatedBy,
-	}
-
-	_, err := c.do(ctx, http.MethodPatch, apiPath, updateReq, nil)
+	_, err := c.do(ctx, http.MethodPut, apiPath, updateReq, nil)
 	if err != nil {
 		return fmt.Errorf("failed to update apollo item: %w", err)
 	}
@@ -231,8 +229,9 @@ func (c *Client) DeleteApolloItem(ctx context.Context, env, appId, clusterName, 
 	return nil
 }
 
-func (c *Client) GetApolloItem(ctx context.Context, apolloItemId, orgName string) (*ApollItem, error) {
-	apiPath := path.Join("orgs", orgName, "apollo-items", apolloItemId)
+func (c *Client) GetApolloItem(ctx context.Context, env, appId, clusterName, namespace, key string) (*ApollItem, error) {
+	// apiPath := path.Join("orgs", orgName, "apollo-items", apolloItemId)
+	apiPath := path.Join("v1", "envs", env, "apps", appId, "clusters", clusterName, "namespaces", namespace, "items", key)
 
 	var pool ApollItem
 	_, err := c.do(ctx, http.MethodGet, apiPath, nil, &pool)
