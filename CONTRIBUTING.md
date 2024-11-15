@@ -10,7 +10,7 @@ Please make sure to read and observe our [Contributor Code of Conduct](./CODE-OF
 ## Communications
 
 You are welcome to join the [Pulumi Community Slack](https://slack.pulumi.com/) for questions and a community of like-minded folks.
-We discuss features and file bugs on GitHub via [Issues](https://github.com/pulumi/pulumi-pulumiservice/issues) as well as [Discussions](https://github.com/pulumi/pulumi-pulumiservice/discussions).
+We discuss features and file bugs on GitHub via [Issues](https://github.com/pulumi/pulumi-apolloconfig/issues) as well as [Discussions](https://github.com/pulumi/pulumi-apolloconfig/discussions).
 
 ### Issues
 
@@ -18,8 +18,8 @@ Feel free to pick up any existing issue that looks interesting to you or fix a b
 
 ### Feature Work
 
-For larger features, we'd appreciate it if you open a [new issue](https://github.com/pulumi/pulumi-pulumiservice/issues/new) before investing a lot of time so we can discuss the feature together.
-Please also be sure to browse [current issues](https://github.com/pulumi/pulumi-pulumiservice/issues) to make sure your issue is unique, to lighten the triage burden on our maintainers.
+For larger features, we'd appreciate it if you open a [new issue](https://github.com/pulumi/pulumi-apolloconfig/issues/new) before investing a lot of time so we can discuss the feature together.
+Please also be sure to browse [current issues](https://github.com/pulumi/pulumi-apolloconfig/issues) to make sure your issue is unique, to lighten the triage burden on our maintainers.
 Finally, please limit your pull requests to contain only one feature at a time. Separating feature work into individual pull requests helps speed up code review and reduces the barrier to merge.
 
 ## Developing
@@ -38,7 +38,7 @@ You should also test changes manually using a Pulumi program that uses the updat
 
 ### .NET
 - To import generated Nuget package, use this command inside your Pulumi program
-  - `dotnet add package Pulumi.PulumiService -s {your path}/pulumi-pulumiservice/sdk/dotnet/bin/Debug/ -v X.XX.XX`
+  - `dotnet add package Pulumi.ApolloConfig -s {your path}/pulumi-apolloconfig/sdk/dotnet/bin/Debug/ -v X.XX.XX`
 
 ## Submitting a Pull Request
 
@@ -68,11 +68,11 @@ To release a new version of the provider, follow the procedure below:
         git push origin sdk/vX.XX.XX
         ```
     - Github Actions will automatically build, test and then publish the new release to all the various package managers
-    - Once that is done, you will see your version in [Releases](https://github.com/pulumi/pulumi-pulumiservice/releases)
+    - Once that is done, you will see your version in [Releases](https://github.com/pulumi/pulumi-apolloconfig/releases)
     - The version will have a description from `CHANGELOG_PENDING.md`
 1. Codefreeze
    - Move all the items from `CHANGELOG_PENDING.md` to `CHANGELOG.md`, under a new version that you are releasing
-   - Make a PR like [this example](https://github.com/pulumi/pulumi-pulumiservice/pull/255)
+   - Make a PR like [this example](https://github.com/pulumi/pulumi-apolloconfig/pull/255)
    - Get an approval and merge it in
 
 ## Getting Help
