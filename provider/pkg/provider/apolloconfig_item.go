@@ -38,14 +38,14 @@ type ApolloConfigItemInput struct {
 
 func GenerateApolloItemProperties(input ApolloConfigItemInput, apolloItem apolloconfigapi.ApollItem) (outputs *structpb.Struct, inputs *structpb.Struct, err error) {
 	inputMap := resource.PropertyMap{}
-	inputMap["name"] = resource.NewPropertyValue(input.Name)
-	inputMap["organizationName"] = resource.NewPropertyValue(input.OrgName)
-	if input.Description != "" {
-		inputMap["description"] = resource.NewPropertyValue(input.Description)
-	}
-	if input.ForceDestroy {
-		inputMap["forceDestroy"] = resource.NewPropertyValue(input.ForceDestroy)
-	}
+	// inputMap["name"] = resource.NewPropertyValue(input.Name)
+	// inputMap["organizationName"] = resource.NewPropertyValue(input.OrgName)
+	// if input.Description != "" {
+	// 	inputMap["description"] = resource.NewPropertyValue(input.Description)
+	// }
+	// if input.ForceDestroy {
+	// 	inputMap["forceDestroy"] = resource.NewPropertyValue(input.ForceDestroy)
+	// }
 
 	inputMap["env"] = resource.NewPropertyValue(input.Env)
 	inputMap["appId"] = resource.NewPropertyValue(input.AppId)
@@ -54,12 +54,17 @@ func GenerateApolloItemProperties(input ApolloConfigItemInput, apolloItem apollo
 	inputMap["key"] = resource.NewPropertyValue(input.Key)
 	inputMap["value"] = resource.NewPropertyValue(input.Value)
 	inputMap["dataChangeCreatedBy"] = resource.NewPropertyValue(input.DataChangeCreatedBy)
+	inputMap["comment"] = resource.NewPropertyValue(input.Comment)
+	inputMap["dataChangeLastModifiedBy"] = resource.NewPropertyValue(input.DataChangeLastModifiedBy)
+	if input.Operator != "" {
+		inputMap["operator"] = resource.NewPropertyValue(input.Operator)
+	}
 
 	outputMap := resource.PropertyMap{}
 	outputMap["apolloItemId"] = resource.NewPropertyValue(apolloItem.ID)
-	outputMap["name"] = inputMap["name"]
-	outputMap["organizationName"] = inputMap["organizationName"]
-	outputMap["tokenValue"] = resource.NewPropertyValue(apolloItem.TokenValue)
+	// outputMap["name"] = inputMap["name"]
+	// outputMap["organizationName"] = inputMap["organizationName"]
+	// outputMap["tokenValue"] = resource.NewPropertyValue(apolloItem.TokenValue)
 
 	outputMap["env"] = resource.NewPropertyValue(input.Env)
 	outputMap["appId"] = resource.NewPropertyValue(input.AppId)
@@ -75,12 +80,12 @@ func GenerateApolloItemProperties(input ApolloConfigItemInput, apolloItem apollo
 	outputMap["dataChangeCreatedTime"] = resource.NewPropertyValue(apolloItem.DataChangeCreatedTime)
 	outputMap["dataChangeLastModifiedTime"] = resource.NewPropertyValue(apolloItem.DataChangeLastModifiedTime)
 
-	if input.Description != "" {
-		outputMap["description"] = inputMap["description"]
-	}
-	if input.ForceDestroy {
-		outputMap["forceDestroy"] = inputMap["forceDestroy"]
-	}
+	// if input.Description != "" {
+	// 	outputMap["description"] = inputMap["description"]
+	// }
+	// if input.ForceDestroy {
+	// 	outputMap["forceDestroy"] = inputMap["forceDestroy"]
+	// }
 
 	inputs, err = plugin.MarshalProperties(inputMap, plugin.MarshalOptions{})
 	if err != nil {
@@ -108,17 +113,17 @@ func (aci *ApolloConfigItemResource) ToApolloConfigItemInput(inputMap resource.P
 		return ""
 	}
 
-	getBoolValue := func(key string) bool {
-		if v, ok := inputMap[resource.PropertyKey(key)]; ok && v.HasValue() && v.IsBool() {
-			return v.BoolValue()
-		}
-		return false
-	}
+	// getBoolValue := func(key string) bool {
+	// 	if v, ok := inputMap[resource.PropertyKey(key)]; ok && v.HasValue() && v.IsBool() {
+	// 		return v.BoolValue()
+	// 	}
+	// 	return false
+	// }
 
-	input.Name = getStringValue("name")
-	input.Description = getStringValue("description")
-	input.OrgName = getStringValue("organizationName")
-	input.ForceDestroy = getBoolValue("forceDestroy")
+	// input.Name = getStringValue("name")
+	// input.Description = getStringValue("description")
+	// input.OrgName = getStringValue("organizationName")
+	// input.ForceDestroy = getBoolValue("forceDestroy")
 
 	input.AppId = getStringValue("appId")
 	input.Namespace = getStringValue("namespace")
@@ -161,7 +166,12 @@ func (aci *ApolloConfigItemResource) Diff(req *pulumirpc.DiffRequest) (*pulumirp
 
 	detailedDiffs := map[string]*pulumirpc.PropertyDiff{}
 	replaceProperties := map[string]bool{
-		"organizationName": true,
+		// "organizationName": true,
+		"env": true,
+		"appId": true,
+		"clusterName": true,
+		"namespace": true,
+		// "key": true,
 	}
 	for k, v := range dd {
 		if _, ok := replaceProperties[k]; ok {
@@ -222,11 +232,12 @@ func (aci *ApolloConfigItemResource) Create(req *pulumirpc.CreateRequest) (*pulu
 	}
 
 	input := aci.ToApolloConfigItemInput(inputMap)
+	itemId := fmt.Sprintf("%s/%s/%s/%s/%s", input.Env, input.AppId, input.ClusterName, input.Namespace, input.Key)
 	fmt.Printf("ToApolloConfigItemInput inputMap: %+v\n", inputMap)
 	fmt.Printf("ToApolloConfigItemInput input: %+v\n", input)
 	apolloItem, err := aci.createApolloItem(ctx, input)
 	if err != nil {
-		return nil, fmt.Errorf("error creating apollo item '%s': %s", input.Name, err.Error())
+		return nil, fmt.Errorf("error creating apollo item: '%s': %s", itemId, err.Error())
 	}
 
 	outputProperties, _, err := GenerateApolloItemProperties(input, *apolloItem)
@@ -237,7 +248,7 @@ func (aci *ApolloConfigItemResource) Create(req *pulumirpc.CreateRequest) (*pulu
 	fmt.Printf("outputProperties: %+v\n", outputProperties)
 
 	return &pulumirpc.CreateResponse{
-		Id:         fmt.Sprintf("%s/%s/%s/%s/%s", input.Env, input.AppId, input.ClusterName, input.Namespace, input.Key),
+		Id:         itemId,
 		Properties: outputProperties,
 	}, nil
 
@@ -269,9 +280,20 @@ func (aci *ApolloConfigItemResource) Update(req *pulumirpc.UpdateRequest) (*pulu
 	}
 
 	changedInputs := olds
-	changedInputs["name"] = news["name"]
-	changedInputs["description"] = news["description"]
-	changedInputs["forceDestroy"] = news["forceDestroy"]
+	// changedInputs["name"] = news["name"]
+	// changedInputs["description"] = news["description"]
+	// changedInputs["forceDestroy"] = news["forceDestroy"]
+
+	changedInputs["appId"] = news["appId"]
+	changedInputs["namespace"] = news["namespace"]
+	changedInputs["env"] = news["env"]
+	changedInputs["clusterName"] = news["clusterName"]
+	changedInputs["dataChangeLastModifiedBy"] = news["dataChangeLastModifiedBy"]
+	changedInputs["env"] = news["env"]
+	changedInputs["value"] = news["value"]
+	changedInputs["comment"] = news["comment"]
+	changedInputs["operator"] = news["operator"]
+	changedInputs["dataChangeCreatedBy"] = news["dataChangeCreatedBy"]
 
 	inputsApolloItem := aci.ToApolloConfigItemInput(changedInputs)
 	err = aci.updateApolloItem(ctx, apolloItemId, inputsApolloItem)
@@ -294,15 +316,17 @@ func (aci *ApolloConfigItemResource) Update(req *pulumirpc.UpdateRequest) (*pulu
 
 func (aci *ApolloConfigItemResource) Read(req *pulumirpc.ReadRequest) (*pulumirpc.ReadResponse, error) {
 	ctx := context.Background()
-	urn := req.GetId()
+	// urn := req.GetId()
+	itemId := req.GetId()
 
-	orgName, _, _, _, apolloItemId, err := splitApolloItemId(urn)
+	// orgName, _, _, _, apolloItemId, err := splitApolloItemId(itemId)
+	env, appId, clusterName, namespace, key, err := splitApolloItemId(itemId)
 	if err != nil {
 		return nil, err
 	}
 
 	// the item id is immutable; if we get nil it got deleted, otherwise all data is the same
-	apolloItem, err := aci.client.GetApolloItem(ctx, apolloItemId, orgName)
+	apolloItem, err := aci.client.GetApolloItem(ctx, env, appId, clusterName, namespace, key)
 	if err != nil {
 		return nil, err
 	}
@@ -319,9 +343,20 @@ func (aci *ApolloConfigItemResource) Read(req *pulumirpc.ReadRequest) (*pulumirp
 	}
 
 	input := ApolloConfigItemInput{
-		OrgName:     orgName,
-		Description: apolloItem.Description,
-		Name:        apolloItem.Name,
+		// OrgName:     orgName,
+		// Description: apolloItem.Description,
+		// Name:        apolloItem.Name,
+
+		AppId:                    appId,
+		Namespace:                namespace,
+		Env:                      env,
+		ClusterName:              clusterName,
+		Key:                      key,
+		Value:                    apolloItem.Value,
+		Comment:                  apolloItem.Comment,
+		// Operator:                 apolloItem.
+		DataChangeCreatedBy:      apolloItem.DataChangeCreatedBy,
+		DataChangeLastModifiedBy: apolloItem.DataChangeLastModifiedBy,
 	}
 	outputProperties, inputs, err := GenerateApolloItemProperties(input, *apolloItem)
 	if err != nil {
@@ -365,7 +400,24 @@ func (aci *ApolloConfigItemResource) createApolloItem(ctx context.Context, input
 }
 
 func (aci *ApolloConfigItemResource) updateApolloItem(ctx context.Context, apolloItemId string, input ApolloConfigItemInput) error {
-	return aci.client.UpdateApolloItem(ctx, apolloItemId, input.OrgName, input.Name, input.Description)
+	env, appId, clusterName, namespace, key, err := splitApolloItemId(apolloItemId)
+	if err != nil {
+		return err
+	}
+
+	params := &apolloconfigapi.CreateUpdateApollItemRequest{
+		AppID:                    appId,
+		Namespace:                namespace,
+		Env:                      env,
+		ClusterName:              clusterName,
+		Key:                      key,
+		Value:                    input.Value,
+		Comment:                  input.Comment,
+		Operator:                 input.Operator,
+		DataChangeCreatedBy:      input.DataChangeCreatedBy,
+		DataChangeLastModifiedBy: input.DataChangeLastModifiedBy,
+	}
+	return aci.client.UpdateApolloItem(ctx, apolloItemId, params)
 }
 
 func (aci *ApolloConfigItemResource) deleteApolloItem(ctx context.Context, id string, operator string) error {
