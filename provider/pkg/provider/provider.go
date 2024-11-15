@@ -34,7 +34,7 @@ import (
 )
 
 type ApolloconfigResource interface {
-	Configure(config PulumiServiceConfig)
+	Configure(config ApollConfig)
 	Diff(req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error)
 	Create(req *pulumirpc.CreateRequest) (*pulumirpc.CreateResponse, error)
 	Delete(req *pulumirpc.DeleteRequest) (*pbempty.Empty, error)
@@ -101,7 +101,7 @@ func (k *apolloconfigProvider) DiffConfig(ctx context.Context, req *pulumirpc.Di
 // Configure configures the resource provider with "globals" that control its behavior.
 func (k *apolloconfigProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequest) (*pulumirpc.ConfigureResponse, error) {
 
-	sc := PulumiServiceConfig{}
+	sc := ApollConfig{}
 	sc.Config = make(map[string]string)
 	for key, val := range req.GetVariables() {
 		sc.Config[strings.TrimPrefix(key, "apolloconfig:config:")] = val
@@ -235,7 +235,7 @@ func (k *apolloconfigProvider) getApolloconfigResource(name string) Apolloconfig
 		}
 	}
 
-	return &PulumiServiceUnknownResource{}
+	return &ApollConfigUnknownResource{}
 }
 
 func getResourceNameFromRequest(req ResourceBase) string {

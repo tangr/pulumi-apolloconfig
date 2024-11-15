@@ -304,7 +304,7 @@ func (aci *ApolloConfigItemResource) Invoke(_ *apolloconfigProvider, req *pulumi
 	return &pulumirpc.InvokeResponse{Return: nil}, fmt.Errorf("unknown function '%s'", req.Tok)
 }
 
-func (aci *ApolloConfigItemResource) Configure(_ PulumiServiceConfig) {
+func (aci *ApolloConfigItemResource) Configure(_ ApollConfig) {
 }
 
 func (aci *ApolloConfigItemResource) createApolloItem(ctx context.Context, input ApolloConfigItemInput) (*apolloconfigapi.ApollItem, error) {

@@ -8,37 +8,37 @@ import (
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
-type PulumiServiceUnknownResource struct{}
-type PulumiServiceUnknownFunction struct{}
+type ApollConfigUnknownResource struct{}
+type ApollConfigUnknownFunction struct{}
 
-func (u *PulumiServiceUnknownResource) Name() string {
+func (u *ApollConfigUnknownResource) Name() string {
 	return "apolloconfig:index:Unknown"
 }
 
-func (u *PulumiServiceUnknownResource) Configure(config PulumiServiceConfig) {
+func (u *ApollConfigUnknownResource) Configure(config ApollConfig) {
 }
 
-func (u *PulumiServiceUnknownResource) Diff(req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
+func (u *ApollConfigUnknownResource) Diff(req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
 	return nil, createUnknownResourceErrorFromRequest(req)
 }
 
-func (u *PulumiServiceUnknownResource) Delete(req *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
+func (u *ApollConfigUnknownResource) Delete(req *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
 	return nil, createUnknownResourceErrorFromRequest(req)
 }
 
-func (u *PulumiServiceUnknownResource) Create(req *pulumirpc.CreateRequest) (*pulumirpc.CreateResponse, error) {
+func (u *ApollConfigUnknownResource) Create(req *pulumirpc.CreateRequest) (*pulumirpc.CreateResponse, error) {
 	return nil, createUnknownResourceErrorFromRequest(req)
 }
 
-func (u *PulumiServiceUnknownResource) Check(req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
+func (u *ApollConfigUnknownResource) Check(req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
 	return nil, createUnknownResourceErrorFromRequest(req)
 }
 
-func (u *PulumiServiceUnknownResource) Update(req *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error) {
+func (u *ApollConfigUnknownResource) Update(req *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error) {
 	return nil, createUnknownResourceErrorFromRequest(req)
 }
 
-func (u *PulumiServiceUnknownResource) Read(req *pulumirpc.ReadRequest) (*pulumirpc.ReadResponse, error) {
+func (u *ApollConfigUnknownResource) Read(req *pulumirpc.ReadRequest) (*pulumirpc.ReadResponse, error) {
 	return nil, createUnknownResourceErrorFromRequest(req)
 }
 
@@ -47,13 +47,13 @@ func createUnknownResourceErrorFromRequest(req ResourceBase) error {
 	return fmt.Errorf("unknown resource type '%s'", rn)
 }
 
-func (u *PulumiServiceUnknownResource) Invoke(s *apolloconfigProvider, req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
+func (u *ApollConfigUnknownResource) Invoke(s *apolloconfigProvider, req *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
 	return &pulumirpc.InvokeResponse{Return: nil}, fmt.Errorf("unknown function '%s'", req.Tok)
 }
 
-func (f *PulumiServiceUnknownFunction) Name() string {
+func (f *ApollConfigUnknownFunction) Name() string {
 	return "apolloconfig:index:Unknown"
 }
 
-func (f *PulumiServiceUnknownFunction) Configure(config PulumiServiceConfig) {
+func (f *ApollConfigUnknownFunction) Configure(config ApollConfig) {
 }
