@@ -30,25 +30,15 @@ type Client struct {
 }
 
 func NewClient(client *http.Client, token, URL string) (*Client, error) {
-
-	var baseURL = &url.URL{
-		Scheme: "https",
-		Host:   "api.pulumi.com",
-		Path:   "/openapi/",
-	}
-	if len(URL) > 0 {
-		parsedURL, err := url.Parse(URL)
-		if err != nil {
-			return nil, fmt.Errorf("failed to parse URL (%q): %w", URL, err)
-		}
-		baseURL = parsedURL
-		baseURL.Path = "/openapi/"
+	parsedURL, err := url.Parse(URL)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse URL (%q): %w", URL, err)
 	}
 
 	return &Client{
 		httpClient: client,
 		token:      token,
-		baseurl:    baseURL,
+		baseurl:    parsedURL,
 	}, nil
 }
 
