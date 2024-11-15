@@ -35,29 +35,45 @@ export class ApolloItem extends pulumi.CustomResource {
     }
 
     /**
-     * The agent pool identifier.
+     * The appId.
      */
-    public /*out*/ readonly agentPoolId!: pulumi.Output<string>;
+    public readonly appId!: pulumi.Output<string | undefined>;
     /**
-     * Description of the agent pool.
+     * The clusterName.
      */
-    public readonly description!: pulumi.Output<string | undefined>;
+    public readonly clusterName!: pulumi.Output<string | undefined>;
     /**
-     * Optional. Flag indicating whether to delete the agent pool even if stacks are configured to use it.
+     * The comment.
      */
-    public readonly forceDestroy!: pulumi.Output<boolean | undefined>;
+    public readonly comment!: pulumi.Output<string | undefined>;
     /**
-     * The name of the agent pool.
+     * The dataChangeCreatedBy.
      */
-    public readonly name!: pulumi.Output<string>;
+    public readonly dataChangeCreatedBy!: pulumi.Output<string | undefined>;
     /**
-     * The organization's name.
+     * The dataChangeLastModifiedBy.
      */
-    public readonly organizationName!: pulumi.Output<string>;
+    public readonly dataChangeLastModifiedBy!: pulumi.Output<string | undefined>;
     /**
-     * The agent pool's token's value.
+     * The env.
      */
-    public /*out*/ readonly tokenValue!: pulumi.Output<string>;
+    public readonly env!: pulumi.Output<string | undefined>;
+    /**
+     * The key.
+     */
+    public readonly key!: pulumi.Output<string | undefined>;
+    /**
+     * The namespace.
+     */
+    public readonly namespace!: pulumi.Output<string | undefined>;
+    /**
+     * The operator for delete item.
+     */
+    public readonly operator!: pulumi.Output<string | undefined>;
+    /**
+     * The value.
+     */
+    public readonly value!: pulumi.Output<string | undefined>;
 
     /**
      * Create a ApolloItem resource with the given unique name, arguments, and options.
@@ -66,33 +82,33 @@ export class ApolloItem extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: ApolloItemArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args?: ApolloItemArgs, opts?: pulumi.CustomResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.name === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'name'");
-            }
-            if ((!args || args.organizationName === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'organizationName'");
-            }
-            resourceInputs["description"] = args ? args.description : undefined;
-            resourceInputs["forceDestroy"] = args ? args.forceDestroy : undefined;
-            resourceInputs["name"] = args ? args.name : undefined;
-            resourceInputs["organizationName"] = args ? args.organizationName : undefined;
-            resourceInputs["agentPoolId"] = undefined /*out*/;
-            resourceInputs["tokenValue"] = undefined /*out*/;
+            resourceInputs["appId"] = args ? args.appId : undefined;
+            resourceInputs["clusterName"] = args ? args.clusterName : undefined;
+            resourceInputs["comment"] = args ? args.comment : undefined;
+            resourceInputs["dataChangeCreatedBy"] = args ? args.dataChangeCreatedBy : undefined;
+            resourceInputs["dataChangeLastModifiedBy"] = args ? args.dataChangeLastModifiedBy : undefined;
+            resourceInputs["env"] = args ? args.env : undefined;
+            resourceInputs["key"] = args ? args.key : undefined;
+            resourceInputs["namespace"] = args ? args.namespace : undefined;
+            resourceInputs["operator"] = args ? args.operator : undefined;
+            resourceInputs["value"] = args ? args.value : undefined;
         } else {
-            resourceInputs["agentPoolId"] = undefined /*out*/;
-            resourceInputs["description"] = undefined /*out*/;
-            resourceInputs["forceDestroy"] = undefined /*out*/;
-            resourceInputs["name"] = undefined /*out*/;
-            resourceInputs["organizationName"] = undefined /*out*/;
-            resourceInputs["tokenValue"] = undefined /*out*/;
+            resourceInputs["appId"] = undefined /*out*/;
+            resourceInputs["clusterName"] = undefined /*out*/;
+            resourceInputs["comment"] = undefined /*out*/;
+            resourceInputs["dataChangeCreatedBy"] = undefined /*out*/;
+            resourceInputs["dataChangeLastModifiedBy"] = undefined /*out*/;
+            resourceInputs["env"] = undefined /*out*/;
+            resourceInputs["key"] = undefined /*out*/;
+            resourceInputs["namespace"] = undefined /*out*/;
+            resourceInputs["operator"] = undefined /*out*/;
+            resourceInputs["value"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const secretOpts = { additionalSecretOutputs: ["tokenValue"] };
-        opts = pulumi.mergeOptions(opts, secretOpts);
         super(ApolloItem.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -102,19 +118,43 @@ export class ApolloItem extends pulumi.CustomResource {
  */
 export interface ApolloItemArgs {
     /**
-     * Description of the agent pool.
+     * The appId.
      */
-    description?: pulumi.Input<string>;
+    appId?: pulumi.Input<string>;
     /**
-     * Optional. Flag indicating whether to delete the agent pool even if stacks are configured to use it.
+     * The clusterName.
      */
-    forceDestroy?: pulumi.Input<boolean>;
+    clusterName?: pulumi.Input<string>;
     /**
-     * Name of the agent pool.
+     * The comment.
      */
-    name: pulumi.Input<string>;
+    comment?: pulumi.Input<string>;
     /**
-     * The organization's name.
+     * The dataChangeCreatedBy.
      */
-    organizationName: pulumi.Input<string>;
+    dataChangeCreatedBy?: pulumi.Input<string>;
+    /**
+     * The dataChangeLastModifiedBy.
+     */
+    dataChangeLastModifiedBy?: pulumi.Input<string>;
+    /**
+     * The env.
+     */
+    env?: pulumi.Input<string>;
+    /**
+     * The key.
+     */
+    key?: pulumi.Input<string>;
+    /**
+     * The namespace.
+     */
+    namespace?: pulumi.Input<string>;
+    /**
+     * The operator for delete item.
+     */
+    operator?: pulumi.Input<string>;
+    /**
+     * The value.
+     */
+    value?: pulumi.Input<string>;
 }
