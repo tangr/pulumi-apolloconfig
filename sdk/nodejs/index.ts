@@ -20,36 +20,6 @@ export type ApolloItem = import("./apolloItem").ApolloItem;
 export const ApolloItem: typeof import("./apolloItem").ApolloItem = null as any;
 utilities.lazyLoad(exports, ["ApolloItem"], () => require("./apolloItem"));
 
-export { DeploymentScheduleArgs } from "./deploymentSchedule";
-export type DeploymentSchedule = import("./deploymentSchedule").DeploymentSchedule;
-export const DeploymentSchedule: typeof import("./deploymentSchedule").DeploymentSchedule = null as any;
-utilities.lazyLoad(exports, ["DeploymentSchedule"], () => require("./deploymentSchedule"));
-
-export { DeploymentSettingsArgs } from "./deploymentSettings";
-export type DeploymentSettings = import("./deploymentSettings").DeploymentSettings;
-export const DeploymentSettings: typeof import("./deploymentSettings").DeploymentSettings = null as any;
-utilities.lazyLoad(exports, ["DeploymentSettings"], () => require("./deploymentSettings"));
-
-export { DriftScheduleArgs } from "./driftSchedule";
-export type DriftSchedule = import("./driftSchedule").DriftSchedule;
-export const DriftSchedule: typeof import("./driftSchedule").DriftSchedule = null as any;
-utilities.lazyLoad(exports, ["DriftSchedule"], () => require("./driftSchedule"));
-
-export { EnvironmentArgs } from "./environment";
-export type Environment = import("./environment").Environment;
-export const Environment: typeof import("./environment").Environment = null as any;
-utilities.lazyLoad(exports, ["Environment"], () => require("./environment"));
-
-export { EnvironmentVersionTagArgs } from "./environmentVersionTag";
-export type EnvironmentVersionTag = import("./environmentVersionTag").EnvironmentVersionTag;
-export const EnvironmentVersionTag: typeof import("./environmentVersionTag").EnvironmentVersionTag = null as any;
-utilities.lazyLoad(exports, ["EnvironmentVersionTag"], () => require("./environmentVersionTag"));
-
-export { OrgAccessTokenArgs } from "./orgAccessToken";
-export type OrgAccessToken = import("./orgAccessToken").OrgAccessToken;
-export const OrgAccessToken: typeof import("./orgAccessToken").OrgAccessToken = null as any;
-utilities.lazyLoad(exports, ["OrgAccessToken"], () => require("./orgAccessToken"));
-
 export { ProviderArgs } from "./provider";
 export type Provider = import("./provider").Provider;
 export const Provider: typeof import("./provider").Provider = null as any;
@@ -59,46 +29,6 @@ export { StackArgs } from "./stack";
 export type Stack = import("./stack").Stack;
 export const Stack: typeof import("./stack").Stack = null as any;
 utilities.lazyLoad(exports, ["Stack"], () => require("./stack"));
-
-export { StackTagArgs } from "./stackTag";
-export type StackTag = import("./stackTag").StackTag;
-export const StackTag: typeof import("./stackTag").StackTag = null as any;
-utilities.lazyLoad(exports, ["StackTag"], () => require("./stackTag"));
-
-export { TeamArgs } from "./team";
-export type Team = import("./team").Team;
-export const Team: typeof import("./team").Team = null as any;
-utilities.lazyLoad(exports, ["Team"], () => require("./team"));
-
-export { TeamAccessTokenArgs } from "./teamAccessToken";
-export type TeamAccessToken = import("./teamAccessToken").TeamAccessToken;
-export const TeamAccessToken: typeof import("./teamAccessToken").TeamAccessToken = null as any;
-utilities.lazyLoad(exports, ["TeamAccessToken"], () => require("./teamAccessToken"));
-
-export { TeamEnvironmentPermissionArgs } from "./teamEnvironmentPermission";
-export type TeamEnvironmentPermission = import("./teamEnvironmentPermission").TeamEnvironmentPermission;
-export const TeamEnvironmentPermission: typeof import("./teamEnvironmentPermission").TeamEnvironmentPermission = null as any;
-utilities.lazyLoad(exports, ["TeamEnvironmentPermission"], () => require("./teamEnvironmentPermission"));
-
-export { TeamStackPermissionArgs } from "./teamStackPermission";
-export type TeamStackPermission = import("./teamStackPermission").TeamStackPermission;
-export const TeamStackPermission: typeof import("./teamStackPermission").TeamStackPermission = null as any;
-utilities.lazyLoad(exports, ["TeamStackPermission"], () => require("./teamStackPermission"));
-
-export { TemplateSourceArgs } from "./templateSource";
-export type TemplateSource = import("./templateSource").TemplateSource;
-export const TemplateSource: typeof import("./templateSource").TemplateSource = null as any;
-utilities.lazyLoad(exports, ["TemplateSource"], () => require("./templateSource"));
-
-export { TtlScheduleArgs } from "./ttlSchedule";
-export type TtlSchedule = import("./ttlSchedule").TtlSchedule;
-export const TtlSchedule: typeof import("./ttlSchedule").TtlSchedule = null as any;
-utilities.lazyLoad(exports, ["TtlSchedule"], () => require("./ttlSchedule"));
-
-export { WebhookArgs } from "./webhook";
-export type Webhook = import("./webhook").Webhook;
-export const Webhook: typeof import("./webhook").Webhook = null as any;
-utilities.lazyLoad(exports, ["Webhook"], () => require("./webhook"));
 
 
 // Export enums:
@@ -123,36 +53,8 @@ const _module = {
                 return new AgentPool(name, <any>undefined, { urn })
             case "apolloconfig:index:ApolloItem":
                 return new ApolloItem(name, <any>undefined, { urn })
-            case "apolloconfig:index:DeploymentSchedule":
-                return new DeploymentSchedule(name, <any>undefined, { urn })
-            case "apolloconfig:index:DeploymentSettings":
-                return new DeploymentSettings(name, <any>undefined, { urn })
-            case "apolloconfig:index:DriftSchedule":
-                return new DriftSchedule(name, <any>undefined, { urn })
-            case "apolloconfig:index:Environment":
-                return new Environment(name, <any>undefined, { urn })
-            case "apolloconfig:index:EnvironmentVersionTag":
-                return new EnvironmentVersionTag(name, <any>undefined, { urn })
-            case "apolloconfig:index:OrgAccessToken":
-                return new OrgAccessToken(name, <any>undefined, { urn })
             case "apolloconfig:index:Stack":
                 return new Stack(name, <any>undefined, { urn })
-            case "apolloconfig:index:StackTag":
-                return new StackTag(name, <any>undefined, { urn })
-            case "apolloconfig:index:Team":
-                return new Team(name, <any>undefined, { urn })
-            case "apolloconfig:index:TeamAccessToken":
-                return new TeamAccessToken(name, <any>undefined, { urn })
-            case "apolloconfig:index:TeamEnvironmentPermission":
-                return new TeamEnvironmentPermission(name, <any>undefined, { urn })
-            case "apolloconfig:index:TeamStackPermission":
-                return new TeamStackPermission(name, <any>undefined, { urn })
-            case "apolloconfig:index:TemplateSource":
-                return new TemplateSource(name, <any>undefined, { urn })
-            case "apolloconfig:index:TtlSchedule":
-                return new TtlSchedule(name, <any>undefined, { urn })
-            case "apolloconfig:index:Webhook":
-                return new Webhook(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
