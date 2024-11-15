@@ -1,6 +1,6 @@
 env:
   AWS_REGION: us-west-2
-  PROVIDER: pulumiservice
+  PROVIDER: apolloconfig
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

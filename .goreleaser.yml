@@ -13,7 +13,7 @@ blobs:
     provider: s3
     region: us-west-2
 builds:
-  - binary: pulumi-resource-pulumiservice
+  - binary: pulumi-resource-apolloconfig
     dir: provider
     env:
       - CGO_ENABLED=0
@@ -26,8 +26,8 @@ builds:
       - linux
     ldflags:
       # The line below MUST align with the module in current provider/go.mod
-      - -X github.com/pulumi/pulumi-pulumiservice/provider/pkg/version.Version={{.Tag }}
-    main: ./cmd/pulumi-resource-pulumiservice/
+      - -X github.com/tangr/pulumi-apolloconfig/provider/pkg/version.Version={{.Tag }}
+    main: ./cmd/pulumi-resource-apolloconfig/
 release:
   disable: false
   prerelease: auto
