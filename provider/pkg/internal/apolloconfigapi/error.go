@@ -18,7 +18,7 @@ import (
 	"fmt"
 )
 
-// ErrorResponse is returned from pulumi service api when there's been an error
+// ErrorResponse is returned from apolloconfig api when there's been an error
 type ErrorResponse struct {
 	StatusCode int    `json:"code"`
 	Message    string `json:"message"`

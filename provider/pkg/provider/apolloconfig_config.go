@@ -10,7 +10,7 @@ const (
 	EnvVarApolloconfigBackendUrl = "APOLLOCONFIG_APIURL"
 )
 
-var ErrAuthTokenNotFound = fmt.Errorf("pulumi access token not found")
+var ErrAuthTokenNotFound = fmt.Errorf("apolloconfig auth token not found")
 
 type ApollConfig struct {
 	Config map[string]string
@@ -25,7 +25,7 @@ func (ac *ApollConfig) getConfig(configName, envName string) string {
 }
 
 func (ac *ApollConfig) getApolloConfigAuthToken() (*string, error) {
-	token := ac.getConfig("accessToken", EnvVarApolloconfigAuthorizationToken)
+	token := ac.getConfig("authToken", EnvVarApolloconfigAuthorizationToken)
 
 	if len(token) > 0 {
 		// found the token

@@ -115,7 +115,7 @@ func (c *Client) sendRequest(req *http.Request, resBody interface{}) (*http.Resp
 	return res, nil
 }
 
-// do execute an http request to the pulumi service at the configured url
+// do execute an http request to the apolloconfig at the configured url
 // Marshals reqBody and resBody to/from JSON. Applies appropriate headers as well
 // Returns http.Response, but Body will be closed
 func (c *Client) do(ctx context.Context, method, path string, reqBody interface{}, resBody interface{}) (*http.Response, error) {
