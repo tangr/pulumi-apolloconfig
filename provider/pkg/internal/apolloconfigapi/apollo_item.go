@@ -99,7 +99,7 @@ func (c *Client) CreateApolloItem(ctx context.Context, params *CreateUpdateApoll
 		return nil, err
 	}
 
-	apiPath := path.Join("v1", "envs", params.Env, "apps", params.AppID, "clusters", params.ClusterName, "namespaces", params.Namespace, "items")
+	apiPath := path.Join("openapi", "v1", "envs", params.Env, "apps", params.AppID, "clusters", params.ClusterName, "namespaces", params.Namespace, "items")
 
 	createReq := CreateUpdateApollItemPostData{
 		Key:                 params.Key,
@@ -142,7 +142,7 @@ func (c *Client) UpdateApolloItem(ctx context.Context, apolloItemId string, para
 		return errors.New("apolloItemId length must be greater than zero")
 	}
 
-	apiPath := path.Join("v1", "envs", params.Env, "apps", params.AppID, "clusters", params.ClusterName, "namespaces", params.Namespace, "items", params.Key)
+	apiPath := path.Join("openapi", "v1", "envs", params.Env, "apps", params.AppID, "clusters", params.ClusterName, "namespaces", params.Namespace, "items", params.Key)
 
 	updateReq := UpdateApollItemPostData{
 		Key:                       params.Key,
@@ -173,7 +173,7 @@ func (c *Client) DeleteApolloItem(ctx context.Context, env, appId, clusterName, 
 		return errors.New("key length must be greater than zero")
 	}
 
-	apiPath := path.Join("v1", "envs", env, "apps", appId, "clusters", clusterName, "namespaces", namespace, "items", key)
+	apiPath := path.Join("openapi", "v1", "envs", env, "apps", appId, "clusters", clusterName, "namespaces", namespace, "items", key)
 
 	var err error
 	_, err = c.doWithQuery(ctx, http.MethodDelete, apiPath, url.Values{"operator": []string{operator}}, nil, nil)
@@ -185,7 +185,7 @@ func (c *Client) DeleteApolloItem(ctx context.Context, env, appId, clusterName, 
 }
 
 func (c *Client) GetApolloItem(ctx context.Context, env, appId, clusterName, namespace, key string) (*ApollItem, error) {
-	apiPath := path.Join("v1", "envs", env, "apps", appId, "clusters", clusterName, "namespaces", namespace, "items", key)
+	apiPath := path.Join("openapi", "v1", "envs", env, "apps", appId, "clusters", clusterName, "namespaces", namespace, "items", key)
 
 	var pool ApollItem
 	_, err := c.do(ctx, http.MethodGet, apiPath, nil, &pool)
