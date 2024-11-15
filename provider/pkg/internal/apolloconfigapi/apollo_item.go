@@ -110,11 +110,6 @@ func (c *Client) CreateApolloItem(ctx context.Context, params *CreateUpdateApoll
 
 	var createRes createApollItemResponse
 
-	fmt.Printf("apiPath createReq: %+v\n", createReq)
-	fmt.Printf("apiPath createRes: %+v\n", createRes)
-	fmt.Printf("apiPath apiPath: %+v\n", apiPath)
-	fmt.Printf("apiPath http.MethodPost: %+v\n", http.MethodPost)
-
 	_, err := c.do(ctx, http.MethodPost, apiPath, createReq, &createRes)
 
 	if err != nil {
