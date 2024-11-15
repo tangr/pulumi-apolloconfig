@@ -26,16 +26,10 @@ type ApolloItemClient interface {
 	CreateApolloItem(ctx context.Context, params *CreateUpdateApollItemRequest) (*ApollItem, error)
 	UpdateApolloItem(ctx context.Context, apolloItemId string, params *CreateUpdateApollItemRequest) error
 	DeleteApolloItem(ctx context.Context, env, appId, clusterName, namespace, key, operator string) error
-	// DeleteApolloItem(ctx context.Context, apolloItemId, orgName string, forceDestroy bool) error
 	GetApolloItem(ctx context.Context, env, appId, clusterName, namespace, key string) (*ApollItem, error)
 }
 
 type ApollItem struct {
-	ID          string `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description,omitempty"`
-	TokenValue  string `json:"tokenValue"`
-
 	Env                 string `json:"env"`
 	AppId               string `json:"appId"`
 	ClusterName         string `json:"clusterName"`
@@ -51,9 +45,6 @@ type ApollItem struct {
 }
 
 type createApollItemResponse struct {
-	ID         string `json:"id"`
-	TokenValue string `json:"tokenValue"`
-
 	DataChangeLastModifiedBy   string `json:"dataChangeLastModifiedBy"`
 	DataChangeCreatedTime      string `json:"dataChangeCreatedTime"`
 	DataChangeLastModifiedTime string `json:"dataChangeLastModifiedTime"`
@@ -131,11 +122,6 @@ func (c *Client) CreateApolloItem(ctx context.Context, params *CreateUpdateApoll
 	}
 
 	return &ApollItem{
-		ID:          createRes.ID,
-		Name:        createReq.Key,
-		Description: createReq.Comment,
-		TokenValue:  createRes.TokenValue,
-
 		Env:                 params.Env,
 		AppId:               params.AppID,
 		ClusterName:         params.ClusterName,
@@ -161,7 +147,6 @@ func (c *Client) UpdateApolloItem(ctx context.Context, apolloItemId string, para
 		return errors.New("apolloItemId length must be greater than zero")
 	}
 
-	// apiPath := path.Join("orgs", orgName, "apollo-items", apolloItemId)
 	apiPath := path.Join("v1", "envs", params.Env, "apps", params.AppID, "clusters", params.ClusterName, "namespaces", params.Namespace, "items", params.Key)
 
 	updateReq := UpdateApollItemPostData{
@@ -179,30 +164,6 @@ func (c *Client) UpdateApolloItem(ctx context.Context, apolloItemId string, para
 	return nil
 }
 
-// func (c *Client) DeleteApolloItem(ctx context.Context, apolloItemId, orgName string, forceDestroy bool) error {
-// 	if len(apolloItemId) == 0 {
-// 		return errors.New("apolloItemId length must be greater than zero")
-// 	}
-
-// 	if len(orgName) == 0 {
-// 		return errors.New("orgName length must be greater than zero")
-// 	}
-
-// 	apiPath := path.Join("orgs", orgName, "apollo-items", apolloItemId)
-
-// 	var err error
-// 	if forceDestroy {
-// 		_, err = c.doWithQuery(ctx, http.MethodDelete, apiPath, url.Values{"force": []string{"true"}}, nil, nil)
-// 	} else {
-// 		_, err = c.do(ctx, http.MethodDelete, apiPath, nil, nil)
-// 	}
-// 	if err != nil {
-// 		return fmt.Errorf("failed to delete apollo item %q: %w", apolloItemId, err)
-// 	}
-
-// 	return nil
-// }
-
 func (c *Client) DeleteApolloItem(ctx context.Context, env, appId, clusterName, namespace, key, operator string) error {
 	switch {
 	case env == "":
@@ -217,7 +178,6 @@ func (c *Client) DeleteApolloItem(ctx context.Context, env, appId, clusterName, 
 		return errors.New("key length must be greater than zero")
 	}
 
-	// apiPath := path.Join("orgs", orgName, "apollo-items", apolloItemId)
 	apiPath := path.Join("v1", "envs", env, "apps", appId, "clusters", clusterName, "namespaces", namespace, "items", key)
 
 	var err error
@@ -230,7 +190,6 @@ func (c *Client) DeleteApolloItem(ctx context.Context, env, appId, clusterName, 
 }
 
 func (c *Client) GetApolloItem(ctx context.Context, env, appId, clusterName, namespace, key string) (*ApollItem, error) {
-	// apiPath := path.Join("orgs", orgName, "apollo-items", apolloItemId)
 	apiPath := path.Join("v1", "envs", env, "apps", appId, "clusters", clusterName, "namespaces", namespace, "items", key)
 
 	var pool ApollItem
