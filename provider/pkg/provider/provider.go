@@ -110,18 +110,14 @@ func (k *apolloconfigProvider) Configure(_ context.Context, req *pulumirpc.Confi
 	httpClient := http.Client{
 		Timeout: 60 * time.Second,
 	}
-	token, err := sc.getPulumiAccessToken()
+	token, err := sc.getApolloConfigAuthToken()
 	if err != nil {
 		return nil, err
 	}
-	url, err := sc.getPulumiServiceUrl()
+	url, err := sc.getApolloConfigUrl()
 	if err != nil {
 		return nil, err
 	}
-	// client, err := pulumiapi.NewClient(&httpClient, *token, *url)
-	// if err != nil {
-	// 	return nil, err
-	// }
 
 	apolloclient, err := apolloconfigapi.NewClient(&httpClient, *token, *url)
 	if err != nil {

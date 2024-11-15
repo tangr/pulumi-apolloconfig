@@ -7,7 +7,7 @@ import (
 
 const (
 	EnvVarApolloconfigAuthorizationToken = "APOLLOCONFIG_AUTH_TOKEN"
-	EnvVarApolloconfigBackendUrl = "APOLLOCONFIG_URL"
+	EnvVarApolloconfigBackendUrl = "APOLLOCONFIG_APIURL"
 )
 
 var ErrAuthTokenNotFound = fmt.Errorf("pulumi access token not found")
@@ -24,8 +24,8 @@ func (ac *ApollConfig) getConfig(configName, envName string) string {
 	return os.Getenv(envName)
 }
 
-func (ac *ApollConfig) getPulumiAccessToken() (*string, error) {
-	token := ac.getConfig("accessToken", EnvVarPulumiAccessToken)
+func (ac *ApollConfig) getApolloConfigAuthToken() (*string, error) {
+	token := ac.getConfig("accessToken", EnvVarApolloconfigAuthorizationToken)
 
 	if len(token) > 0 {
 		// found the token
@@ -35,8 +35,8 @@ func (ac *ApollConfig) getPulumiAccessToken() (*string, error) {
 	return nil, ErrAuthTokenNotFound
 }
 
-func (ac *ApollConfig) getPulumiServiceUrl() (*string, error) {
-	url := ac.getConfig("apiUrl", EnvVarPulumiBackendUrl)
+func (ac *ApollConfig) getApolloConfigUrl() (*string, error) {
+	url := ac.getConfig("apiUrl", EnvVarApolloconfigBackendUrl)
 	baseurl := "https://api.pulumi.com"
 
 	if len(url) == 0 {
