@@ -63,7 +63,7 @@ type CreateUpdateApollItemRequest struct {
 	DataChangeCreatedBy      string `json:"dataChangeCreatedBy"`
 }
 
-type CreateUpdateApollItemPostData struct {
+type CreateApollItemPostData struct {
 	Key                 string `json:"key"`
 	Value               string `json:"value"`
 	Comment             string `json:"comment"`
@@ -101,7 +101,7 @@ func (c *Client) CreateApolloItem(ctx context.Context, params *CreateUpdateApoll
 
 	apiPath := path.Join("openapi", "v1", "envs", params.Env, "apps", params.AppID, "clusters", params.ClusterName, "namespaces", params.Namespace, "items")
 
-	createReq := CreateUpdateApollItemPostData{
+	createReq := CreateApollItemPostData{
 		Key:                 params.Key,
 		Value:               params.Value,
 		Comment:             params.Comment,
@@ -145,11 +145,11 @@ func (c *Client) UpdateApolloItem(ctx context.Context, apolloItemId string, para
 	apiPath := path.Join("openapi", "v1", "envs", params.Env, "apps", params.AppID, "clusters", params.ClusterName, "namespaces", params.Namespace, "items", params.Key)
 
 	updateReq := UpdateApollItemPostData{
-		Key:                       params.Key,
-		Value:                     params.Value,
-		Comment:                   params.Comment,
-		DataChangeCreatedBy:       params.DataChangeCreatedBy,
-		DataChangeLastModifiedBy:  params.DataChangeLastModifiedBy,
+		Key:                      params.Key,
+		Value:                    params.Value,
+		Comment:                  params.Comment,
+		DataChangeCreatedBy:      params.DataChangeCreatedBy,
+		DataChangeLastModifiedBy: params.DataChangeLastModifiedBy,
 	}
 
 	_, err := c.do(ctx, http.MethodPut, apiPath, updateReq, nil)
