@@ -44,7 +44,7 @@ type ApollItem struct {
 	DataChangeLastModifiedTime string `json:"dataChangeLastModifiedTime"`
 }
 
-type createApollItemResponse struct {
+type CreateApollItemResponse struct {
 	DataChangeLastModifiedBy   string `json:"dataChangeLastModifiedBy"`
 	DataChangeCreatedTime      string `json:"dataChangeCreatedTime"`
 	DataChangeLastModifiedTime string `json:"dataChangeLastModifiedTime"`
@@ -108,7 +108,7 @@ func (c *Client) CreateApolloItem(ctx context.Context, params *CreateUpdateApoll
 		DataChangeCreatedBy: params.DataChangeCreatedBy,
 	}
 
-	var createRes createApollItemResponse
+	var createRes CreateApollItemResponse
 
 	_, err := c.do(ctx, http.MethodPost, apiPath, createReq, &createRes)
 
