@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
- * Agent Pool for customer managed deployments
+ * ApolloItem for apolloconfig
  */
 export class ApolloItem extends pulumi.CustomResource {
     /**
@@ -124,6 +124,8 @@ export class ApolloItem extends pulumi.CustomResource {
             resourceInputs["value"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const replaceOnChanges = { replaceOnChanges: ["appId", "clusterName", "env", "key", "namespace"] };
+        opts = pulumi.mergeOptions(opts, replaceOnChanges);
         super(ApolloItem.__pulumiType, name, resourceInputs, opts);
     }
 }
