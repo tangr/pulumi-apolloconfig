@@ -136,6 +136,9 @@ install_go_sdk::
 install_nodejs_sdk::
 	-yarn unlink --cwd $(WORKING_DIR)/sdk/nodejs/bin
 	yarn link --cwd $(WORKING_DIR)/sdk/nodejs/bin
+# install_nodejs_sdk::
+#     -npm unlink --prefix $(WORKING_DIR)/sdk/nodejs/bin
+#     npm link --prefix $(WORKING_DIR)/sdk/nodejs/bin
 
 install_java_sdk::
 	cd sdk/java && $(GRADLE) publishToMavenLocal
