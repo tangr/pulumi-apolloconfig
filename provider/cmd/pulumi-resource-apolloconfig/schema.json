@@ -32,27 +32,32 @@
   },
   "resources": {
     "apolloconfig:index:ApolloItem": {
-      "description": "Agent Pool for customer managed deployments",
+      "description": "ApolloItem for apolloconfig",
       "properties": {
         "appId": {
           "description": "The appId.",
-          "type": "string"
+          "type": "string",
+          "replaceOnChanges": true
         },
         "namespace": {
           "description": "The namespace.",
-          "type": "string"
+          "type": "string",
+          "replaceOnChanges": true
         },
         "env": {
           "description": "The env.",
-          "type": "string"
+          "type": "string",
+          "replaceOnChanges": true
         },
         "clusterName": {
           "description": "The clusterName.",
-          "type": "string"
+          "type": "string",
+          "replaceOnChanges": true
         },
         "key": {
           "description": "The key.",
-          "type": "string"
+          "type": "string",
+          "replaceOnChanges": true
         },
         "value": {
           "description": "The value.",
