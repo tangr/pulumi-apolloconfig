@@ -11,5 +11,8 @@
     },
     "terminal.integrated.env.windows": {
         "PATH": "${env:PATH};${env:USERPROFILE}\\.pulumi\\bin"
+    },
+    "gopls": {
+        "buildFlags": ["-tags=debug"]
     }
 }
