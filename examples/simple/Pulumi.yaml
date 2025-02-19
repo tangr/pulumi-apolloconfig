@@ -13,10 +13,10 @@ pluginSearchPaths:
 # config: {'pulumi:tags': {value: {'pulumi:template': yaml}}}
 
 config:
-  # apolloconfig:apiUrl: https://apollo-test.itfs.dev
-  # apolloconfig:authToken: "7cb2cc35f74533d66f6914af9dc32a79c3bd613a"
-  apolloconfig:apiUrl: http://81.68.181.139/
-  apolloconfig:authToken: 1c8552a50108bdb805d79b0b8684f135c33e04087616c5f10001fe7fb6090e29
+  apolloconfig:apiUrl: https://apollo-portal-test.itfs.dev
+  apolloconfig:authToken: "d28615b1bc5d064b8211a6cdc3fbf2f04adb2836634887c40074ae5c32d52cb1"
+  # apolloconfig:apiUrl: http://81.68.181.139/
+  # apolloconfig:authToken: 1c8552a50108bdb805d79b0b8684f135c33e04087616c5f10001fe7fb6090e29
 
 variables: {}
 
