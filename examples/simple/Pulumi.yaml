@@ -24,8 +24,8 @@ resources:
   myApolloProvider:
     type: pulumi:providers:apolloconfig
     properties:
-      apiUrl: https://apollo-test.itfs.dev
-      authToken: 7cb2cc35f74533d66f6914af9dc32a79c3bd613a
+      apiUrl: https://apollo-portal-test.itfs.dev
+      authToken: d28615b1bc5d064b8211a6cdc3fbf2f04adb2836634887c40074ae5c32d52cb1
     options:
       protect: false
   myApolloItemResource:
