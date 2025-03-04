@@ -101,6 +101,9 @@ export class ApolloItem extends pulumi.CustomResource {
             if ((!args || args.namespace === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'namespace'");
             }
+            if ((!args || args.value === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'value'");
+            }
             resourceInputs["appId"] = args ? args.appId : undefined;
             resourceInputs["clusterName"] = args ? args.clusterName : undefined;
             resourceInputs["comment"] = args ? args.comment : undefined;
@@ -173,5 +176,5 @@ export interface ApolloItemArgs {
     /**
      * The value.
      */
-    value?: pulumi.Input<string>;
+    value: pulumi.Input<string>;
 }

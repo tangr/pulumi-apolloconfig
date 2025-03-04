@@ -134,7 +134,8 @@
         "appId",
         "clusterName",
         "namespace",
-        "key"
+        "key",
+        "value"
       ]
     }
   },
